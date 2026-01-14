@@ -1,8 +1,9 @@
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import { Product } from '@/lib/types';
-import { cn } from '@/lib/utils';
+import { PLACEHOLDERS } from '@/lib/constants';
+import { useRef } from 'react';
 
 interface ProductCardProps {
   product: Product;
@@ -16,28 +17,55 @@ const categoryLabels = {
 };
 
 export function ProductCard({ product, index }: ProductCardProps) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  
+  // Mouse position for tilt effect
+  const mouseX = useMotionValue(0.5);
+  const mouseY = useMotionValue(0.5);
+  
+  const rotateX = useSpring(useTransform(mouseY, [0, 1], [4, -4]), { stiffness: 300, damping: 30 });
+  const rotateY = useSpring(useTransform(mouseX, [0, 1], [-4, 4]), { stiffness: 300, damping: 30 });
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+    mouseX.set(x);
+    mouseY.set(y);
+  };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0.5);
+    mouseY.set(0.5);
+  };
+
+  // Get placeholder image based on index
+  const placeholderImage = PLACEHOLDERS.products[index % PLACEHOLDERS.products.length];
+
   return (
     <motion.article
-      initial={{ opacity: 0, y: 16 }}
+      ref={cardRef}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-30px' }}
       transition={{ duration: 0.4, delay: index * 0.05 }}
+      style={{ rotateX, rotateY, transformPerspective: 1000 }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
     >
       <Link
         to={`/products/${product.slug}`}
-        className="group block relative overflow-hidden rounded-lg bg-card border border-border/50 transition-all duration-300 hover:border-border hover:shadow-card"
+        className="group block relative overflow-hidden rounded-lg bg-card border border-border/50 transition-all duration-300 hover:border-primary/30 hover:shadow-card"
       >
         {/* Image container - compact aspect ratio */}
         <div className="relative aspect-[16/9] overflow-hidden bg-muted/20">
-          {/* Placeholder gradient */}
-          <div className="absolute inset-0 bg-gradient-to-br from-muted/30 to-muted/10" />
-          
-          {/* Placeholder text */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="font-mono text-sm text-muted-foreground/30">
-              {product.name}
-            </span>
-          </div>
+          {/* Product image */}
+          <img 
+            src={product.heroImage || placeholderImage}
+            alt={product.name}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
 
           {/* Hover overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -49,7 +77,7 @@ export function ProductCard({ product, index }: ProductCardProps) {
 
           {/* Category badge */}
           <div className="absolute bottom-3 left-3">
-            <span className="inline-block px-2 py-1 bg-background/80 backdrop-blur rounded font-mono text-[10px] tracking-wider text-muted-foreground uppercase">
+            <span className="inline-block px-2.5 py-1 bg-background/80 backdrop-blur rounded font-mono text-[10px] tracking-wider text-muted-foreground uppercase">
               {categoryLabels[product.category]}
             </span>
           </div>
@@ -69,7 +97,7 @@ export function ProductCard({ product, index }: ProductCardProps) {
         </div>
 
         {/* Bottom accent line on hover */}
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
       </Link>
     </motion.article>
   );

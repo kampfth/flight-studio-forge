@@ -21,9 +21,9 @@ The Neo Minimal pack just got bigger. Based on community requests, we've added f
 - Minor texture seams fixed on wing tips
 
 **Coming Next:**
-We're exploring a cargo variant series. Let us know on Discord if that interests you.
+We're exploring a cargo variant series. Let us know on Facebook if that interests you.
     `,
-    image: '/dispatch/neo-minimal-update.jpg',
+    image: '/placeholders/dispatch-01.jpg',
     tags: ['update', 'livery', 'a320'],
   },
   {
@@ -51,7 +51,7 @@ Version 2.3 focuses on getting your flight data where you need it.
 
 Thanks to everyone who reported issues. Keep them coming.
     `,
-    image: '/dispatch/runway-notes-v23.jpg',
+    image: '/placeholders/dispatch-02.jpg',
     tags: ['update', 'utility'],
   },
   {
@@ -75,9 +75,9 @@ We've been collecting reference photos from aviation museums, historical societi
 - Fenix A320 (post-launch)
 - iniBuilds A310 (if demand exists)
 
-Join Discord for sneak peeks as we progress.
+Join our Facebook page for sneak peeks as we progress.
     `,
-    image: '/dispatch/retroline-announced.jpg',
+    image: '/placeholders/dispatch-03.jpg',
     tags: ['announcement', 'livery', 'development'],
   },
   {
@@ -92,7 +92,7 @@ Join Discord for sneak peeks as we progress.
 We'd rather take six months on something polished than rush out half-finished products. Every release is tested across different systems, different configurations, different use cases.
 
 **Community Input:**
-Features come from Discord conversations. Not guesswork, not trends — actual requests from people who use our stuff daily.
+Features come from Facebook conversations. Not guesswork, not trends — actual requests from people who use our stuff daily.
 
 **Long-Term Thinking:**
 We don't abandon products after release. Runway Notes is on v2.3 with more updates planned. Neo Minimal keeps getting new liveries. This is how software should work.
@@ -101,9 +101,9 @@ We don't abandon products after release. Runway Notes is on v2.3 with more updat
 Every product ships with proper docs. Installation guides, troubleshooting steps, customization options. Because "just works" includes "you can figure out when it doesn't."
 
 **What's Next:**
-More utilities. More liveries. Maybe some surprises. Follow along on Discord.
+More utilities. More liveries. Maybe some surprises. Follow along on Facebook.
     `,
-    image: '/dispatch/philosophy.jpg',
+    image: '/placeholders/dispatch-04.jpg',
     tags: ['philosophy', 'team'],
   },
   {
@@ -131,7 +131,7 @@ V3 will also bring desktop improvements. Smoother physics, more preset slots, an
 
 Patience appreciated. We'd rather delay than ship broken.
     `,
-    image: '/dispatch/cabin-camera-vr.jpg',
+    image: '/placeholders/dispatch-05.jpg',
     tags: ['roadmap', 'utility', 'vr'],
   },
 ];

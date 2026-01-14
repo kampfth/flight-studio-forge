@@ -1,16 +1,9 @@
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
-import { NavItem } from '@/lib/types';
+import { Menu, X, Facebook } from 'lucide-react';
 import { cn } from '@/lib/utils';
-
-const navigation: NavItem[] = [
-  { label: 'Hangar', href: '/products' },
-  { label: 'Dispatch', href: '/dispatch' },
-  { label: 'Brand', href: '/brand' },
-  { label: 'Contact', href: '/contact' },
-];
+import { FACEBOOK_URL, NAV_ITEMS, BRAND_NAME } from '@/lib/constants';
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,13 +24,13 @@ export function Header() {
               <span className="font-mono font-bold text-background text-xs">4S</span>
             </div>
             <span className="font-mono font-medium text-sm tracking-tight hidden sm:block">
-              4Simmers
+              {BRAND_NAME}
             </span>
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-7">
-            {navigation.map((item) => (
+            {NAV_ITEMS.map((item) => (
               <Link
                 key={item.href}
                 to={item.href}
@@ -52,12 +45,13 @@ export function Header() {
               </Link>
             ))}
             <a
-              href="#"
+              href={FACEBOOK_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-mono text-xs tracking-wide uppercase text-primary hover:text-primary/80 transition-colors"
+              className="flex items-center gap-1.5 font-mono text-xs tracking-wide uppercase text-primary hover:text-primary/80 transition-colors"
             >
-              Discord
+              <Facebook size={14} />
+              Facebook
             </a>
           </div>
 
@@ -83,7 +77,7 @@ export function Header() {
             className="md:hidden bg-background/95 backdrop-blur-xl border-t border-border/40"
           >
             <div className="section-container py-4 flex flex-col gap-1">
-              {navigation.map((item) => (
+              {NAV_ITEMS.map((item) => (
                 <Link
                   key={item.href}
                   to={item.href}
@@ -99,12 +93,13 @@ export function Header() {
                 </Link>
               ))}
               <a
-                href="#"
+                href={FACEBOOK_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-mono text-sm py-2.5 text-primary"
+                className="flex items-center gap-2 font-mono text-sm py-2.5 text-primary"
               >
-                Discord
+                <Facebook size={16} />
+                Facebook
               </a>
             </div>
           </motion.div>

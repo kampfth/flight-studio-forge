@@ -1,20 +1,22 @@
 import { motion } from 'framer-motion';
-import { Mail, MessageCircle, ExternalLink } from 'lucide-react';
+import { Facebook, Headset, ExternalLink } from 'lucide-react';
 import { Layout } from '@/components/layout/layout';
 import { Button } from '@/components/ui/button';
+import { FACEBOOK_URL, SUPPORT_URL } from '@/lib/constants';
+import { staggerContainer, staggerItem, fadeUp } from '@/lib/motion';
 
 const Contact = () => {
   return (
     <Layout>
-      <section className="py-24 md:py-32">
+      <section className="py-section-lg md:py-24">
         <div className="section-container">
           <div className="max-w-2xl mx-auto text-center">
             {/* Header */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="mb-16"
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              className="mb-12"
             >
               <span className="font-mono text-primary text-sm tracking-[0.2em] uppercase mb-4 block">
                 Contact
@@ -23,71 +25,70 @@ const Contact = () => {
                 Get in Touch
               </h1>
               <p className="text-muted-foreground">
-                Questions, feedback, or just want to talk about flight sim? 
-                We're always around.
+                Questions, feedback, or need help? We're here for you.
               </p>
             </motion.div>
 
             {/* Contact Options */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Discord */}
+            <motion.div 
+              className="grid grid-cols-1 md:grid-cols-2 gap-6"
+              variants={staggerContainer}
+              initial="hidden"
+              animate="visible"
+            >
+              {/* Support */}
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                className="p-8 rounded-lg border border-border/50 bg-card/30 hover:border-primary/30 transition-all duration-300"
+                variants={staggerItem}
+                className="p-6 md:p-8 rounded-lg border border-border/50 bg-card/30 hover:border-primary/30 transition-all duration-300"
               >
-                <div className="w-16 h-16 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-6">
-                  <MessageCircle size={32} className="text-primary" />
+                <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-5">
+                  <Headset size={28} className="text-primary" />
                 </div>
                 <h2 className="font-mono font-semibold text-xl mb-3">
-                  Discord
+                  Support
                 </h2>
                 <p className="text-muted-foreground text-sm mb-6">
-                  The fastest way to reach us. Join the community, get support, 
-                  share your flights.
+                  Need help with a product? Open a support ticket and we'll get back to you.
                 </p>
                 <Button asChild variant="glow" className="w-full">
-                  <a href="#" target="_blank" rel="noopener noreferrer">
-                    Join Server
+                  <a href={SUPPORT_URL} target="_blank" rel="noopener noreferrer">
+                    Open a Support Ticket
                     <ExternalLink size={14} className="ml-2" />
                   </a>
                 </Button>
               </motion.div>
 
-              {/* Email */}
+              {/* Facebook */}
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="p-8 rounded-lg border border-border/50 bg-card/30 hover:border-primary/30 transition-all duration-300"
+                variants={staggerItem}
+                className="p-6 md:p-8 rounded-lg border border-border/50 bg-card/30 hover:border-primary/30 transition-all duration-300"
               >
-                <div className="w-16 h-16 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-6">
-                  <Mail size={32} className="text-primary" />
+                <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-5">
+                  <Facebook size={28} className="text-primary" />
                 </div>
                 <h2 className="font-mono font-semibold text-xl mb-3">
-                  Email
+                  Facebook
                 </h2>
                 <p className="text-muted-foreground text-sm mb-6">
-                  For business inquiries, press, or anything that needs a 
-                  formal reply.
+                  Follow us for updates, news, and connect with the flight sim community.
                 </p>
                 <Button asChild variant="outline" className="w-full">
-                  <a href="mailto:hello@4simmers.com">
-                    hello@4simmers.com
+                  <a href={FACEBOOK_URL} target="_blank" rel="noopener noreferrer">
+                    Visit Our Page
+                    <ExternalLink size={14} className="ml-2" />
                   </a>
                 </Button>
               </motion.div>
-            </div>
+            </motion.div>
 
             {/* Note */}
             <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="mt-12 text-sm text-muted-foreground font-mono"
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              className="mt-10 text-sm text-muted-foreground font-mono"
             >
-              Response time: Discord ~hours • Email ~48h
+              Response time: Support tickets ~24-48h
             </motion.p>
           </div>
         </div>
