@@ -2,7 +2,7 @@ export interface Product {
   slug: string;
   name: string;
   tagline: string;
-  category: 'aircraft' | 'scenery' | 'utility';
+  category: 'livery' | 'utility' | 'pack';
   heroImage: string;
   heroVideo?: string;
   description: string;
@@ -10,10 +10,12 @@ export interface Product {
   faq: FaqItem[];
   gallery: string[];
   specs?: SpecItem[];
+  compatibility?: string[];
   releaseDate?: string;
   version?: string;
   marketplaceUrl?: string;
   discordUrl?: string;
+  trailerUrl?: string;
 }
 
 export interface FeatureItem {

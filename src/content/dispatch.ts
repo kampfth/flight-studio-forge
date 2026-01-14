@@ -2,101 +2,137 @@ import { DispatchPost } from '@/lib/types';
 
 export const dispatchPosts: DispatchPost[] = [
   {
-    slug: 'e175-update-120',
-    title: 'E175 v1.2.0 — Autoflight Overhaul',
+    slug: 'neo-minimal-update-120',
+    title: 'Neo Minimal v1.2.0 — Winter Refresh',
     date: '2024-12-10',
-    excerpt: 'Complete rewrite of the autoflight logic. VNAV now matches real-world behavior.',
+    excerpt: 'Four new liveries added, plus improved night lighting across the pack.',
     content: `
-The E175 autoflight system has been completely rebuilt from the ground up. 
+The Neo Minimal pack just got bigger. Based on community requests, we've added four new designs focusing on northern European aesthetics.
 
 **What's New:**
-- VNAV path following now uses descent advisory calculations
-- LNAV wind correction improved
-- Fixed altitude capture overshoot at high speeds
-- Added managed speed mode for climb/descent
+- Arctic White variant with subtle blue accents
+- Nordic Gray with warm interior glow
+- Midnight Express - our darkest yet
+- Dawn Patrol - sunrise gradients done right
 
-This update was built using data from real E175 pilots in our Discord community. Their feedback was invaluable.
+**Improvements:**
+- Emissive maps tweaked for more realistic cabin lighting
+- Registration fonts unified across all liveries
+- Minor texture seams fixed on wing tips
 
 **Coming Next:**
-We're already working on the TCAS implementation for v1.3.0. Stay tuned.
+We're exploring a cargo variant series. Let us know on Discord if that interests you.
     `,
-    image: '/dispatch/e175-update.jpg',
-    tags: ['update', 'aircraft', 'e175'],
+    image: '/dispatch/neo-minimal-update.jpg',
+    tags: ['update', 'livery', 'a320'],
   },
   {
-    slug: 'sbgr-announced',
-    title: 'SBGR Guarulhos — Development Started',
-    date: '2024-09-05',
-    excerpt: 'Our first major scenery project is officially underway. São Paulo, here we come.',
+    slug: 'runway-notes-v23',
+    title: 'Runway Notes v2.3.0 — Export Overhaul',
+    date: '2024-11-28',
+    excerpt: 'New export formats and better VA compatibility.',
     content: `
-After months of research and planning, we're thrilled to announce our first scenery project: São Paulo Guarulhos International (SBGR).
+Version 2.3 focuses on getting your flight data where you need it.
 
-**Why SBGR?**
-- Largest airport in South America
-- Underserved in the MSFS ecosystem
-- Complex operations and unique challenges
-- Beautiful Brazilian architecture
+**New Export Options:**
+- vPilot-compatible format for VATSIM logging
+- POSCON integration beta
+- Enhanced PDF with approach charts compatibility
+- SimBrief format for route comparisons
+
+**Bug Fixes:**
+- Fixed fuel calculation on long-haul flights
+- Corrected timezone issues in some regions
+- Better handling of sim crashes mid-flight
+
+**Performance:**
+- Database queries now 40% faster
+- Reduced memory footprint by 15%
+
+Thanks to everyone who reported issues. Keep them coming.
+    `,
+    image: '/dispatch/runway-notes-v23.jpg',
+    tags: ['update', 'utility'],
+  },
+  {
+    slug: 'retroline-announced',
+    title: 'Retroline Series — Development Started',
+    date: '2024-08-15',
+    excerpt: 'Our love letter to the golden age of aviation.',
+    content: `
+After months of research, we're thrilled to announce Retroline — a collection of meticulously recreated classic liveries.
+
+**Why Retroline?**
+- These schemes deserve modern quality
+- Historical aviation is underserved in MSFS
+- We love the aesthetics of 70s/80s aviation
 
 **Our Approach:**
-We've partnered with local spotters and aviation professionals to gather reference material. Every terminal, every taxiway sign, every parking position will be accurate.
+We've been collecting reference photos from aviation museums, historical societies, and collector communities. Every stripe, every font, every color will be period-accurate.
 
-The team is aiming for a Q2 2024 release. We'll share progress in our Discord.
+**Aircraft Planned:**
+- PMDG 737 (initial release)
+- Fenix A320 (post-launch)
+- iniBuilds A310 (if demand exists)
+
+Join Discord for sneak peeks as we progress.
     `,
-    image: '/dispatch/sbgr-announced.jpg',
-    tags: ['announcement', 'scenery', 'development'],
+    image: '/dispatch/retroline-announced.jpg',
+    tags: ['announcement', 'livery', 'development'],
   },
   {
-    slug: 'privacy-manifesto',
-    title: 'Why We Don\'t Track You',
-    date: '2024-07-20',
-    excerpt: 'Privacy isn\'t a feature. It\'s a fundamental right. Here\'s our commitment.',
+    slug: 'studio-philosophy',
+    title: 'How We Build Things',
+    date: '2024-06-01',
+    excerpt: 'A look inside our development process and priorities.',
     content: `
-In an industry where telemetry and analytics are the norm, we're taking a different path.
+4Simmers started because we wanted addons that respected our time.
 
-**Our Commitment:**
-- No telemetry in any of our products
-- No accounts required to use what you bought
-- No "phone home" license checks
-- No data collection of any kind
+**Quality Over Speed:**
+We'd rather take six months on something polished than rush out half-finished products. Every release is tested across different systems, different configurations, different use cases.
 
-**Why?**
-Because you bought software to fly, not to be surveilled. Your sim, your data, your business.
+**Community Input:**
+Features come from Discord conversations. Not guesswork, not trends — actual requests from people who use our stuff daily.
 
-This isn't marketing. It's how we build everything. Flight Tracker Pro keeps all your flight data on your local machine — always has, always will.
+**Long-Term Thinking:**
+We don't abandon products after release. Runway Notes is on v2.3 with more updates planned. Neo Minimal keeps getting new liveries. This is how software should work.
 
-**The Business Reality:**
-Yes, this means we have less data. We can't A/B test features or track engagement. We rely on Discord and direct feedback instead.
-
-Worth it.
-    `,
-    image: '/dispatch/privacy.jpg',
-    tags: ['philosophy', 'privacy'],
-  },
-  {
-    slug: 'studio-origins',
-    title: 'From Simmers, For Simmers',
-    date: '2024-03-01',
-    excerpt: 'How 4Simmers started and where we\'re heading.',
-    content: `
-4Simmers was born from frustration.
-
-Too many addons felt half-finished. Too many studios went silent after release. Too many products tracked everything you did.
-
-We're four developers who've been simming since FS2004. We know what good software feels like — and what's missing from this market.
-
-**Our Focus:**
-- Quality over quantity
-- Long-term support
-- Transparent development
-- Community-driven roadmaps
+**Documentation:**
+Every product ships with proper docs. Installation guides, troubleshooting steps, customization options. Because "just works" includes "you can figure out when it doesn't."
 
 **What's Next:**
-We're small, but we're building for the long term. Each release will be polished, documented, and supported.
-
-Thanks for being here.
+More utilities. More liveries. Maybe some surprises. Follow along on Discord.
     `,
-    image: '/dispatch/origins.jpg',
-    tags: ['announcement', 'team'],
+    image: '/dispatch/philosophy.jpg',
+    tags: ['philosophy', 'team'],
+  },
+  {
+    slug: 'cabin-camera-vr-roadmap',
+    title: 'Cabin Camera VR — Roadmap Update',
+    date: '2024-10-20',
+    excerpt: 'VR support is coming. Here\'s the timeline.',
+    content: `
+The most requested feature for Cabin Camera is VR support. Here's where we stand.
+
+**The Challenge:**
+VR camera manipulation is fundamentally different from desktop. We're not just porting — we're rebuilding the interaction model from scratch.
+
+**Timeline:**
+- Beta testing: Q1 2025
+- Public release: Q2 2025 (v3.0)
+
+**What to Expect:**
+- Hand controller support for camera movement
+- Saved presets accessible via gesture menu
+- Performance optimizations for VR frame rates
+
+**Desktop Users:**
+V3 will also bring desktop improvements. Smoother physics, more preset slots, and better UI.
+
+Patience appreciated. We'd rather delay than ship broken.
+    `,
+    image: '/dispatch/cabin-camera-vr.jpg',
+    tags: ['roadmap', 'utility', 'vr'],
   },
 ];
 

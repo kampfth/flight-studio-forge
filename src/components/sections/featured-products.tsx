@@ -6,37 +6,37 @@ import { ProductCard } from '@/components/products/product-card';
 import { Button } from '@/components/ui/button';
 
 export function FeaturedProducts() {
-  const featuredProducts = products.slice(0, 3);
+  const featuredProducts = products.slice(0, 6);
 
   return (
-    <section className="py-24 md:py-32">
+    <section className="py-section md:py-section-md">
       <div className="section-container">
         {/* Section header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12"
+          transition={{ duration: 0.4 }}
+          className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8"
         >
           <div>
-            <span className="font-mono text-primary text-sm tracking-[0.2em] uppercase mb-4 block">
+            <span className="font-mono text-primary text-xs tracking-[0.2em] uppercase mb-2 block">
               The Hangar
             </span>
-            <h2 className="text-3xl md:text-4xl font-mono font-bold">
+            <h2 className="text-2xl md:text-3xl font-mono font-bold">
               Latest Releases
             </h2>
           </div>
-          <Button asChild variant="outline">
+          <Button asChild variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground w-fit">
             <Link to="/products">
-              View All Products
-              <ArrowRight size={16} className="ml-2" />
+              View All
+              <ArrowRight size={14} className="ml-1.5" />
             </Link>
           </Button>
         </motion.div>
 
-        {/* Product grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Product grid - compact */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {featuredProducts.map((product, index) => (
             <ProductCard key={product.slug} product={product} index={index} />
           ))}

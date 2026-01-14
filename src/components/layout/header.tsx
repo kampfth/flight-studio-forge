@@ -7,8 +7,8 @@ import { cn } from '@/lib/utils';
 
 const navigation: NavItem[] = [
   { label: 'Hangar', href: '/products' },
-  { label: 'Brand', href: '/brand' },
   { label: 'Dispatch', href: '/dispatch' },
+  { label: 'Brand', href: '/brand' },
   { label: 'Contact', href: '/contact' },
 ];
 
@@ -18,48 +18,56 @@ export function Header() {
 
   return (
     <motion.header
-      initial={{ y: -20, opacity: 0 }}
+      initial={{ y: -10, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.4 }}
       className="fixed top-0 left-0 right-0 z-50 glass"
     >
       <nav className="section-container">
-        <div className="flex items-center justify-between h-16 md:h-20">
+        <div className="flex items-center justify-between h-14 md:h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-8 h-8 bg-primary rounded-sm flex items-center justify-center transition-all duration-300 group-hover:shadow-glow group-hover:scale-110">
-              <span className="font-mono font-bold text-primary-foreground text-sm">4S</span>
+          <Link to="/" className="flex items-center gap-2.5 group">
+            <div className="w-7 h-7 bg-foreground rounded-sm flex items-center justify-center transition-all duration-300 group-hover:scale-105">
+              <span className="font-mono font-bold text-background text-xs">4S</span>
             </div>
-            <span className="font-mono font-semibold text-lg tracking-tight hidden sm:block">
+            <span className="font-mono font-medium text-sm tracking-tight hidden sm:block">
               4Simmers
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-7">
             {navigation.map((item) => (
               <Link
                 key={item.href}
                 to={item.href}
                 className={cn(
-                  'font-mono text-sm tracking-wide link-underline transition-colors duration-200',
+                  'font-mono text-xs tracking-wide uppercase transition-colors duration-200',
                   location.pathname === item.href || location.pathname.startsWith(item.href + '/')
-                    ? 'text-primary'
+                    ? 'text-foreground'
                     : 'text-muted-foreground hover:text-foreground'
                 )}
               >
                 {item.label}
               </Link>
             ))}
+            <a
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-mono text-xs tracking-wide uppercase text-primary hover:text-primary/80 transition-colors"
+            >
+              Discord
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-foreground hover:text-primary transition-colors"
+            className="md:hidden p-2 -mr-2 text-foreground hover:text-primary transition-colors"
             aria-label="Toggle menu"
           >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </nav>
@@ -72,24 +80,32 @@ export function Header() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden glass border-t border-border/50"
+            className="md:hidden bg-background/95 backdrop-blur-xl border-t border-border/40"
           >
-            <div className="section-container py-6 flex flex-col gap-4">
+            <div className="section-container py-4 flex flex-col gap-1">
               {navigation.map((item) => (
                 <Link
                   key={item.href}
                   to={item.href}
                   onClick={() => setIsOpen(false)}
                   className={cn(
-                    'font-mono text-lg py-2 transition-colors',
+                    'font-mono text-sm py-2.5 transition-colors',
                     location.pathname === item.href
-                      ? 'text-primary'
+                      ? 'text-foreground'
                       : 'text-muted-foreground hover:text-foreground'
                   )}
                 >
                   {item.label}
                 </Link>
               ))}
+              <a
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono text-sm py-2.5 text-primary"
+              >
+                Discord
+              </a>
             </div>
           </motion.div>
         )}

@@ -5,81 +5,74 @@ import { Button } from '@/components/ui/button';
 
 export function HeroSection() {
   const scrollToContent = () => {
-    window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
+    window.scrollTo({ top: window.innerHeight * 0.9, behavior: 'smooth' });
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background gradient */}
+    <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
+      {/* Background */}
       <div className="absolute inset-0 bg-gradient-hero" />
       
-      {/* Glow effect */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
+      {/* Grid overlay - very subtle */}
+      <div className="absolute inset-0 grid-overlay" />
 
-      {/* Grid pattern */}
-      <div 
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: `linear-gradient(hsl(var(--foreground)) 1px, transparent 1px),
-                           linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)`,
-          backgroundSize: '60px 60px',
-        }}
-      />
+      {/* Scanlines - barely visible */}
+      <div className="absolute inset-0 scanlines" />
 
-      <div className="section-container relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
+      <div className="section-container relative z-10 pt-16">
+        <div className="max-w-3xl mx-auto text-center">
           {/* Tagline */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mb-6"
+            transition={{ duration: 0.5 }}
+            className="mb-5"
           >
-            <span className="font-mono text-primary text-sm tracking-[0.3em] uppercase">
-              Flight Simulation Refined
+            <span className="font-mono text-muted-foreground text-xs tracking-[0.25em] uppercase">
+              Liveries & Utilities for MSFS
             </span>
           </motion.div>
 
           {/* Main headline */}
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-mono font-bold tracking-tight mb-8"
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-mono font-bold tracking-tight mb-5 leading-[1.1]"
           >
-            Precision addons.
+            Liveries that feel native.
             <br />
-            <span className="text-gradient">Zero compromise.</span>
+            <span className="text-muted-foreground">Utilities that fly.</span>
           </motion.h1>
 
           {/* Subheadline */}
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12"
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-sm md:text-base text-muted-foreground max-w-xl mx-auto mb-8"
           >
-            Aircraft, scenery, and utilities for Microsoft Flight Simulator. 
-            Built by simmers who care about authenticity, performance, and your privacy.
+            Precision-crafted addons for Microsoft Flight Simulator. 
+            Focused on quality, performance, and getting out of your way.
           </motion.p>
 
           {/* CTAs */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-3"
           >
-            <Button asChild variant="glow" size="lg">
+            <Button asChild size="default" className="bg-foreground text-background hover:bg-foreground/90">
               <Link to="/products">
                 Enter the Hangar
-                <ArrowRight className="ml-2" size={18} />
+                <ArrowRight className="ml-2" size={16} />
               </Link>
             </Button>
-            <Button asChild variant="outline" size="lg">
-              <Link to="/brand">
-                Our Philosophy
-              </Link>
+            <Button asChild variant="ghost" size="default" className="text-muted-foreground hover:text-foreground">
+              <a href="#" target="_blank" rel="noopener noreferrer">
+                Join Discord
+              </a>
             </Button>
           </motion.div>
         </div>
@@ -89,16 +82,16 @@ export function HeroSection() {
       <motion.button
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.8 }}
+        transition={{ duration: 0.5, delay: 0.6 }}
         onClick={scrollToContent}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted-foreground hover:text-primary transition-colors"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 text-muted-foreground/50 hover:text-muted-foreground transition-colors"
         aria-label="Scroll to content"
       >
         <motion.div
-          animate={{ y: [0, 8, 0] }}
+          animate={{ y: [0, 5, 0] }}
           transition={{ duration: 1.5, repeat: Infinity }}
         >
-          <ChevronDown size={32} />
+          <ChevronDown size={24} />
         </motion.div>
       </motion.button>
     </section>
