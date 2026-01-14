@@ -1,27 +1,34 @@
 import { motion } from 'framer-motion';
-import { Shield, Heart, Eye, Users } from 'lucide-react';
+import { Crosshair, MessageSquare, Wrench, Palette, Link as LinkIcon } from 'lucide-react';
 import { Layout } from '@/components/layout/layout';
+import { staggerContainer, staggerItem, fadeUp } from '@/lib/motion';
+import { FACEBOOK_URL } from '@/lib/constants';
 
 const values = [
   {
-    icon: Shield,
-    title: 'Privacy by Design',
-    description: 'No telemetry. No accounts required. No "phone home" license checks. Your sim, your data, your business.',
+    icon: Crosshair,
+    title: 'Precision Craft',
+    description: 'Every texture, every feature, every detail is obsessively refined. We don\'t ship until it\'s right.',
   },
   {
-    icon: Heart,
-    title: 'Quality Over Quantity',
-    description: 'We\'d rather release one exceptional product per year than five mediocre ones. Every detail matters.',
+    icon: MessageSquare,
+    title: 'Feedback Built',
+    description: 'Our roadmap comes from real users. Features are shaped by the community that uses them.',
   },
   {
-    icon: Eye,
-    title: 'Transparency',
-    description: 'Development updates shared openly. Roadmaps discussed publicly. No surprises, no abandoned projects.',
+    icon: Wrench,
+    title: 'Pioneering Utilities',
+    description: 'We build tools that don\'t exist yet. Solving problems others haven\'t tackled.',
   },
   {
-    icon: Users,
-    title: 'Community First',
-    description: 'Features come from real feedback. Our Discord isn\'t a support dump — it\'s where decisions are made.',
+    icon: Palette,
+    title: 'Consistent Style',
+    description: 'A unified visual language across all products. Recognizable quality at a glance.',
+  },
+  {
+    icon: LinkIcon,
+    title: 'Clean Integration',
+    description: 'Simple installation, clear documentation, seamless compatibility. No friction.',
   },
 ];
 
@@ -29,12 +36,12 @@ const Brand = () => {
   return (
     <Layout>
       {/* Hero */}
-      <section className="py-24 md:py-32">
+      <section className="py-section-lg md:py-24">
         <div className="section-container">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
             className="max-w-3xl"
           >
             <span className="font-mono text-primary text-sm tracking-[0.2em] uppercase mb-4 block">
@@ -44,12 +51,11 @@ const Brand = () => {
               From Simmers, For Simmers
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed mb-8">
-              4Simmers was born from frustration. Too many addons felt half-finished. 
-              Too many studios went silent after release. Too many products tracked 
-              everything you did.
+              4Simmers was born from passion. Too many addons felt half-finished. 
+              Too many studios went silent after release. We wanted something better.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              We're four developers who've been simming since FS2004. We know what 
+              We're developers who've been simming since FS2004. We know what 
               good software feels like — and what's missing from this market. So we 
               built the studio we wished existed.
             </p>
@@ -58,14 +64,14 @@ const Brand = () => {
       </section>
 
       {/* Values */}
-      <section className="py-20 md:py-28 bg-card/30">
+      <section className="py-section md:py-section-md bg-card/30">
         <div className="section-container">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="mb-16"
+            className="mb-10"
           >
             <span className="font-mono text-primary text-sm tracking-[0.2em] uppercase mb-4 block">
               Our Values
@@ -75,85 +81,93 @@ const Brand = () => {
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {values.map((value, index) => (
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            {values.map((value) => (
               <motion.div
                 key={value.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="flex gap-6"
+                variants={staggerItem}
+                className="p-5 rounded-lg border border-border/30 bg-card/20 hover:border-border/50 transition-colors"
               >
-                <div className="flex-shrink-0 w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <value.icon size={28} className="text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-mono font-semibold text-xl mb-3">
-                    {value.title}
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {value.description}
-                  </p>
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                    <value.icon size={20} className="text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-mono font-semibold text-base mb-2">
+                      {value.title}
+                    </h3>
+                    <p className="text-muted-foreground text-sm leading-relaxed">
+                      {value.description}
+                    </p>
+                  </div>
                 </div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Privacy Section */}
-      <section className="py-20 md:py-28">
+      {/* Approach Section */}
+      <section className="py-section md:py-section-md">
         <div className="section-container">
           <div className="max-w-3xl">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
               viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
             >
               <span className="font-mono text-primary text-sm tracking-[0.2em] uppercase mb-4 block">
-                Privacy Policy
+                Our Approach
               </span>
               <h2 className="text-3xl md:text-4xl font-mono font-bold mb-8">
-                The Simplest Privacy Policy
+                Quality Over Quantity
               </h2>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
               className="space-y-6"
             >
-              <div className="p-6 rounded-lg border border-primary/30 bg-primary/5">
-                <p className="font-mono text-lg text-foreground">
-                  We don't collect your data. Period.
+              <motion.div variants={staggerItem} className="p-5 rounded-lg border border-primary/30 bg-primary/5">
+                <p className="font-mono text-base text-foreground">
+                  We'd rather release one exceptional product per year than five mediocre ones.
                 </p>
-              </div>
+              </motion.div>
 
-              <p className="text-muted-foreground leading-relaxed">
-                Our products don't phone home. They don't track your flights. They 
-                don't require accounts. They don't analyze your usage patterns.
-              </p>
+              <motion.p variants={staggerItem} className="text-muted-foreground leading-relaxed">
+                Every product goes through extensive testing across different systems 
+                and configurations. We don't abandon projects after release — updates 
+                keep coming based on real feedback.
+              </motion.p>
 
-              <p className="text-muted-foreground leading-relaxed">
-                This website uses no cookies, no analytics, no tracking scripts. 
-                We don't know who you are unless you tell us by joining Discord or 
-                emailing us.
-              </p>
+              <motion.p variants={staggerItem} className="text-muted-foreground leading-relaxed">
+                Documentation matters. Every product ships with proper guides, 
+                troubleshooting steps, and customization options. Because good software 
+                should be understandable.
+              </motion.p>
 
-              <p className="text-muted-foreground leading-relaxed">
-                When you buy from a marketplace (like the MSFS Marketplace or 
-                simMarket), that's between you and them. We only see aggregate sales 
-                numbers, never individual customer data.
-              </p>
-
-              <p className="text-muted-foreground leading-relaxed">
-                This isn't marketing. It's how we build everything. Because you 
-                bought software to fly, not to be surveilled.
-              </p>
+              <motion.p variants={staggerItem} className="text-muted-foreground leading-relaxed">
+                Follow our journey on{' '}
+                <a 
+                  href={FACEBOOK_URL} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  Facebook
+                </a>{' '}
+                for updates, behind-the-scenes content, and new releases.
+              </motion.p>
             </motion.div>
           </div>
         </div>
