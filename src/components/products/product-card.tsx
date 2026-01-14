@@ -9,76 +9,67 @@ interface ProductCardProps {
   index: number;
 }
 
-const categoryColors = {
-  aircraft: 'from-primary/20 to-primary/5',
-  scenery: 'from-blue-500/20 to-blue-500/5',
-  utility: 'from-amber-500/20 to-amber-500/5',
-};
-
 const categoryLabels = {
-  aircraft: 'Aircraft',
-  scenery: 'Scenery',
+  livery: 'Livery',
   utility: 'Utility',
+  pack: 'Pack',
 };
 
 export function ProductCard({ product, index }: ProductCardProps) {
   return (
     <motion.article
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      viewport={{ once: true, margin: '-30px' }}
+      transition={{ duration: 0.4, delay: index * 0.05 }}
     >
       <Link
         to={`/products/${product.slug}`}
-        className="group block relative overflow-hidden rounded-lg bg-card border border-border/50 transition-all duration-500 hover:border-primary/30 hover:shadow-card"
+        className="group block relative overflow-hidden rounded-lg bg-card border border-border/50 transition-all duration-300 hover:border-border hover:shadow-card"
       >
-        {/* Image container */}
-        <div className="relative aspect-[16/10] overflow-hidden">
-          {/* Placeholder gradient - replace with actual images */}
-          <div 
-            className={cn(
-              'absolute inset-0 bg-gradient-to-br',
-              categoryColors[product.category]
-            )}
-          />
+        {/* Image container - compact aspect ratio */}
+        <div className="relative aspect-[16/9] overflow-hidden bg-muted/20">
+          {/* Placeholder gradient */}
+          <div className="absolute inset-0 bg-gradient-to-br from-muted/30 to-muted/10" />
           
-          {/* Placeholder content */}
+          {/* Placeholder text */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="font-mono text-2xl text-muted-foreground/30">
+            <span className="font-mono text-sm text-muted-foreground/30">
               {product.name}
             </span>
           </div>
 
           {/* Hover overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           
           {/* Arrow indicator */}
-          <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-background/80 backdrop-blur flex items-center justify-center opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300">
-            <ArrowUpRight size={18} className="text-primary" />
+          <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-background/80 backdrop-blur flex items-center justify-center opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200">
+            <ArrowUpRight size={14} className="text-foreground" />
+          </div>
+
+          {/* Category badge */}
+          <div className="absolute bottom-3 left-3">
+            <span className="inline-block px-2 py-1 bg-background/80 backdrop-blur rounded font-mono text-[10px] tracking-wider text-muted-foreground uppercase">
+              {categoryLabels[product.category]}
+            </span>
           </div>
         </div>
 
-        {/* Content */}
-        <div className="p-6">
-          {/* Category badge */}
-          <span className="inline-block font-mono text-xs tracking-wider text-primary uppercase mb-3">
-            {categoryLabels[product.category]}
-          </span>
-
+        {/* Content - compact padding */}
+        <div className="p-4">
           {/* Title */}
-          <h3 className="font-mono font-semibold text-xl mb-2 group-hover:text-primary transition-colors duration-300">
+          <h3 className="font-mono font-medium text-sm mb-1 group-hover:text-foreground transition-colors line-clamp-1">
             {product.name}
           </h3>
 
           {/* Tagline */}
-          <p className="text-muted-foreground text-sm line-clamp-2">
+          <p className="text-muted-foreground text-xs line-clamp-1">
             {product.tagline}
           </p>
         </div>
 
-        {/* Bottom accent line */}
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+        {/* Bottom accent line on hover */}
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
       </Link>
     </motion.article>
   );
