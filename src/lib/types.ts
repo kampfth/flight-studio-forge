@@ -1,3 +1,5 @@
+import type { RichContentBlock } from '@/components/content/RichContent';
+
 export interface Product {
   slug: string;
   name: string;
@@ -6,6 +8,8 @@ export interface Product {
   heroImage: string;
   heroVideo?: string;
   description: string;
+  /** Rich description with formatted blocks (optional - fallback to description if not provided) */
+  richDescription?: RichContentBlock[];
   features: FeatureItem[];
   faq: FaqItem[];
   gallery: string[];

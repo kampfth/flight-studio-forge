@@ -1,4 +1,255 @@
 import { Product } from '@/lib/types';
+import type { RichContentBlock } from '@/components/content/RichContent';
+
+/**
+ * Rich description example for Neo Minimal pack
+ * Demonstrates all supported content blocks for interface testing
+ */
+const neoMinimalRichDescription: RichContentBlock[] = [
+  // Lead paragraph with inline HTML
+  {
+    type: 'paragraph',
+    content: 'Trijet enthusiasts and aviation perfectionists, it\'s your time to shine. The <strong>4S Livery Pack: Neo Minimal</strong> represents our most ambitious collection yet—a carefully curated set of 12 minimalist liveries designed for pilots who appreciate <em>understated elegance</em> over flashy branding.',
+  },
+  
+  // YouTube embed (example with valid video ID)
+  {
+    type: 'youtube',
+    videoId: 'dQw4w9WgXcQ',
+    title: 'Official Trailer: Neo Minimal Livery Pack | 4S Studios',
+  },
+  
+  // Paragraph with link
+  {
+    type: 'paragraph',
+    content: 'The update brings a host of refinements including expanded systems simulation, new art and sounds, and <a href="https://flightsimulator.com" target="_blank" class="text-primary hover:underline">MSFS 2024 compatibility</a>. Every texture has been optimized for performance without sacrificing a single pixel of detail.',
+  },
+  
+  // H2 heading
+  {
+    type: 'heading',
+    level: 2,
+    content: 'What\'s Included in This Pack',
+    id: 'whats-included',
+  },
+  
+  // Unordered list with formatted items
+  {
+    type: 'list',
+    ordered: false,
+    items: [
+      '<strong>12 Unique Liveries</strong> — Each design crafted from scratch with consistent visual language',
+      '<strong>4K PBR Textures</strong> — High-resolution materials with accurate wear, dirt, and weathering patterns',
+      '<strong>Night Lighting</strong> — Custom emissive maps for realistic cabin glow and nav lights',
+      '<strong>Custom Sounds</strong> — Carefully curated ambient audio for cabin immersion',
+      '<strong>Documentation</strong> — Full installation guide and livery preview cards',
+    ],
+  },
+  
+  // Image with caption
+  {
+    type: 'image',
+    src: '/placeholders/product-01.jpg',
+    alt: 'Neo Minimal Livery Preview - Exterior shot',
+    caption: 'The flagship Swiss-inspired livery features clean lines and subtle metallic accents',
+  },
+  
+  // Callout - info
+  {
+    type: 'callout',
+    variant: 'info',
+    title: 'Compatibility Note',
+    content: 'This pack is designed exclusively for the <strong>FlyByWire A32NX</strong>. Works with both MSFS 2020 and MSFS 2024. Ensure you have the latest stable or development version installed.',
+  },
+  
+  // Heading 3
+  {
+    type: 'heading',
+    level: 3,
+    content: 'Technical Specifications',
+    id: 'tech-specs',
+  },
+  
+  // Comparison table
+  {
+    type: 'comparison-table',
+    headers: ['Specification', 'Value', 'Notes'],
+    rows: [
+      ['Texture Resolution', '4096 x 4096', 'DDS BC7 compressed'],
+      ['Performance Impact', 'Minimal (<2 FPS)', 'Tested on RTX 3070'],
+      ['File Size', '~450 MB', 'Per livery: ~38 MB average'],
+      ['PBR Channels', 'Full', 'Albedo, Normal, Metallic, Roughness'],
+      ['Night Textures', 'Yes', 'Custom emissive maps'],
+    ],
+  },
+  
+  // Blockquote
+  {
+    type: 'blockquote',
+    content: 'The Neo Minimal pack changed how I think about livery design. Less is truly more when executed with this level of precision.',
+    author: 'Captain SimReview',
+    source: 'Flight Sim Magazine',
+  },
+  
+  // Gradient divider
+  {
+    type: 'divider',
+    style: 'gradient',
+  },
+  
+  // Heading 2
+  {
+    type: 'heading',
+    level: 2,
+    content: 'MSFS 2024-Only Features',
+    id: 'msfs2024-features',
+  },
+  
+  // Paragraph with bold highlights
+  {
+    type: 'paragraph',
+    content: 'The Microsoft Flight Simulator 2024 variant takes full advantage of the new LOD system to minimize performance impact. <strong>2024-only features include:</strong> enhanced weathering effects that respond to actual flight conditions, dynamic dirt accumulation, and improved night lighting with the new global illumination system.',
+  },
+  
+  // Feature grid
+  {
+    type: 'feature-grid',
+    items: [
+      { title: 'Dynamic Weathering', description: 'Liveries react to rain, snow, and environmental conditions in real-time' },
+      { title: 'Enhanced LOD', description: 'Optimized texture switching for buttery smooth performance at any altitude' },
+      { title: 'HDR Lighting', description: 'Full support for the new HDR pipeline with accurate color reproduction' },
+      { title: 'Career Mode Ready', description: 'Compatible with the new career mode when purchased via Marketplace' },
+    ],
+  },
+  
+  // Full-width image
+  {
+    type: 'image',
+    src: '/placeholders/product-02.jpg',
+    alt: 'Multiple liveries parked at gate',
+    caption: 'Three liveries from the collection shown at Zurich Airport during golden hour',
+    fullWidth: true,
+  },
+  
+  // Callout - tip
+  {
+    type: 'callout',
+    variant: 'tip',
+    title: 'Pro Tip',
+    content: 'For the best visual experience, we recommend enabling <strong>Ultra texture quality</strong> and <strong>High anisotropic filtering</strong> in your MSFS graphics settings.',
+  },
+  
+  // Heading 3
+  {
+    type: 'heading',
+    level: 3,
+    content: 'Installation Guide',
+    id: 'installation',
+  },
+  
+  // Ordered list
+  {
+    type: 'list',
+    ordered: true,
+    items: [
+      'Download the pack from your account dashboard or the MSFS Marketplace',
+      'Extract the ZIP file to a temporary location',
+      'Copy the <code>4s-neo-minimal</code> folder to your Community folder',
+      'Launch MSFS and verify the liveries appear in the aircraft selector',
+      'Optional: Run the provided <code>verify-install.bat</code> to check file integrity',
+    ],
+  },
+  
+  // Code block
+  {
+    type: 'code',
+    language: 'Folder Structure',
+    content: `Community/
+└── 4s-neo-minimal/
+    ├── manifest.json
+    ├── layout.json
+    ├── ContentInfo/
+    │   └── 4S-NEOMIN/
+    │       └── Thumbnail.jpg
+    └── SimObjects/
+        └── Airplanes/
+            └── FlyByWire_A320_NEO/
+                └── TEXTURE.4S_*/ (12 folders)`,
+  },
+  
+  // Warning callout
+  {
+    type: 'callout',
+    variant: 'warning',
+    title: 'Important',
+    content: 'Do not rename the folders after extraction. The simulator requires exact folder names to locate the textures correctly.',
+  },
+  
+  // Divider
+  {
+    type: 'divider',
+    style: 'dashed',
+  },
+  
+  // Heading 2
+  {
+    type: 'heading',
+    level: 2,
+    content: 'Pricing & Availability',
+    id: 'pricing',
+  },
+  
+  // Paragraph with styled text
+  {
+    type: 'paragraph',
+    content: '<span class="font-mono text-primary font-bold text-xl">$14.99 USD</span> — Includes all 12 liveries, free lifetime updates, and Discord support.',
+  },
+  
+  // Paragraph
+  {
+    type: 'paragraph',
+    content: '<strong>Existing customers</strong> of previous 4S livery packs receive a loyalty discount of <strong class="text-primary">20% off</strong>. Check your email for the discount code, or contact us on Discord if you haven\'t received it.',
+  },
+  
+  // Link block
+  {
+    type: 'link-block',
+    href: 'https://discord.gg/example',
+    text: 'Join our Discord Community',
+    description: 'Get support, request new liveries, and connect with other virtual pilots',
+    external: true,
+  },
+  
+  // GIF example (using a placeholder)
+  {
+    type: 'gif',
+    src: 'https://media.giphy.com/media/3o7TKSjRrfIPjeiVyU/giphy.gif',
+    alt: 'Airplane takeoff animation',
+    caption: 'Animated preview of the custom ground handling effects',
+  },
+  
+  // Success callout
+  {
+    type: 'callout',
+    variant: 'success',
+    title: 'Version 1.2.0 Released',
+    content: 'The latest update includes two new liveries, performance optimizations, and bug fixes for night lighting on certain displays.',
+  },
+  
+  // Final heading
+  {
+    type: 'heading',
+    level: 3,
+    content: 'What\'s Next?',
+    id: 'roadmap',
+  },
+  
+  // Final paragraph
+  {
+    type: 'paragraph',
+    content: 'We\'re already working on the next expansion pack featuring <em>retro-futuristic</em> designs inspired by 1960s concept art. Join our <a href="#" class="text-primary hover:underline">mailing list</a> to be the first to know when it drops.',
+  },
+];
 
 export const products: Product[] = [
   {
@@ -9,6 +260,7 @@ export const products: Product[] = [
     heroImage: '/products/neo-minimal-hero.jpg',
     trailerUrl: '#',
     description: 'A collection of 12 minimalist liveries for the A320neo. Designed for pilots who appreciate understated elegance over flashy branding. Every texture optimized for performance without sacrificing detail.',
+    richDescription: neoMinimalRichDescription,
     features: [
       {
         icon: 'Paintbrush',
