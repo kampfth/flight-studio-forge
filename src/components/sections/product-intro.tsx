@@ -1,3 +1,8 @@
+/**
+ * Component: ProductIntro
+ * Responsibility: Product description section
+ * Used by: ProductDetail page
+ */
 import { motion } from 'framer-motion';
 
 interface ProductIntroProps {

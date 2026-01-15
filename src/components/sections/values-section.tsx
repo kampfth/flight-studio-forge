@@ -1,3 +1,8 @@
+/**
+ * Component: ValuesSection
+ * Responsibility: Display brand values/pillars on homepage
+ * Used by: Index page
+ */
 import { motion } from 'framer-motion';
 import { Crosshair, MessageCircle, Lightbulb, Puzzle, Palette } from 'lucide-react';
 

@@ -1,8 +1,13 @@
-import { NavLink as RouterNavLink, NavLinkProps } from "react-router-dom";
-import { forwardRef } from "react";
-import { cn } from "@/lib/utils";
+/**
+ * Component: NavLink
+ * Responsibility: Enhanced navigation link with active state styling
+ * Used by: Header, mobile navigation
+ */
+import { NavLink as RouterNavLink, NavLinkProps } from 'react-router-dom';
+import { forwardRef } from 'react';
+import { cn } from '@/lib/utils';
 
-interface NavLinkCompatProps extends Omit<NavLinkProps, "className"> {
+interface NavLinkCompatProps extends Omit<NavLinkProps, 'className'> {
   className?: string;
   activeClassName?: string;
   pendingClassName?: string;
@@ -20,9 +25,9 @@ const NavLink = forwardRef<HTMLAnchorElement, NavLinkCompatProps>(
         {...props}
       />
     );
-  },
+  }
 );
 
-NavLink.displayName = "NavLink";
+NavLink.displayName = 'NavLink';
 
 export { NavLink };

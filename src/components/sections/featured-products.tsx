@@ -1,9 +1,15 @@
+/**
+ * Component: FeaturedProducts
+ * Responsibility: Display featured products grid on homepage
+ * Used by: Index page
+ */
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { products } from '@/content/products';
 import { ProductCard } from '@/components/products/product-card';
 import { Button } from '@/components/ui/button';
+import { ROUTES } from '@/lib/routes';
 
 export function FeaturedProducts() {
   const featuredProducts = products.slice(0, 6);

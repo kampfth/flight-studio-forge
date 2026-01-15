@@ -1,8 +1,14 @@
+/**
+ * Component: ProductCard
+ * Responsibility: Product card with tilt effect for grids
+ * Used by: Products page, FeaturedProducts, ProductDetail related products
+ */
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import { Product } from '@/lib/types';
 import { PLACEHOLDERS } from '@/lib/constants';
+import { getProductRoute } from '@/lib/routes';
 import { useRef } from 'react';
 
 interface ProductCardProps {
@@ -55,7 +61,7 @@ export function ProductCard({ product, index }: ProductCardProps) {
       onMouseLeave={handleMouseLeave}
     >
       <Link
-        to={`/products/${product.slug}`}
+        to={getProductRoute(product.slug)}
         className="group block relative overflow-hidden rounded-lg bg-card border border-border/50 transition-all duration-300 hover:border-primary/30 hover:shadow-card"
       >
         {/* Image container - compact aspect ratio */}

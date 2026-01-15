@@ -1,8 +1,11 @@
+/**
+ * Component: ProductHero
+ * Responsibility: Hero section for product detail pages with title, tagline, and metadata
+ * Used by: ProductDetail page
+ */
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ExternalLink } from 'lucide-react';
 import { Product } from '@/lib/types';
-import { Button } from '@/components/ui/button';
 
 interface ProductHeroProps {
   product: Product;
@@ -56,27 +59,20 @@ export function ProductHero({ product }: ProductHeroProps) {
             {product.tagline}
           </motion.p>
 
-          {/* CTAs */}
+          {/* Category Badge */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="flex flex-wrap items-center gap-4"
+            className="flex flex-wrap items-center gap-3"
           >
-            {product.marketplaceUrl && (
-              <Button asChild variant="glow" size="lg">
-                <a href={product.marketplaceUrl} target="_blank" rel="noopener noreferrer">
-                  Get on Marketplace
-                  <ExternalLink size={16} className="ml-2" />
-                </a>
-              </Button>
-            )}
-            {product.discordUrl && (
-              <Button asChild variant="outline" size="lg">
-                <a href={product.discordUrl} target="_blank" rel="noopener noreferrer">
-                  Join Discord
-                </a>
-              </Button>
+            <span className="px-4 py-2 rounded-md bg-primary/10 text-primary font-mono text-sm uppercase tracking-wider">
+              {product.category}
+            </span>
+            {product.compatibility && product.compatibility.length > 0 && (
+              <span className="text-sm text-muted-foreground font-mono">
+                {product.compatibility[0]}
+              </span>
             )}
           </motion.div>
 
