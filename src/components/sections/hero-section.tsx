@@ -1,8 +1,14 @@
+/**
+ * Component: HeroSection
+ * Responsibility: Homepage hero with animated background, headline, and CTAs
+ * Used by: Index page
+ */
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ChevronDown, Facebook } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { FACEBOOK_URL, PLACEHOLDERS } from '@/lib/constants';
+import { ROUTES } from '@/lib/routes';
 import { staggerContainer, staggerItem } from '@/lib/motion';
 import { useEffect, useState } from 'react';
 

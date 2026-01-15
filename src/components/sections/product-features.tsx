@@ -1,3 +1,8 @@
+/**
+ * Component: ProductFeatures
+ * Responsibility: Product features grid with icons
+ * Used by: ProductDetail page
+ */
 import { motion } from 'framer-motion';
 import { Gauge, Layers, Volume2, Settings, Building2, Plane, Sun, Map, Database, BarChart3, Zap, Download, Box, LucideIcon } from 'lucide-react';
 import { FeatureItem } from '@/lib/types';

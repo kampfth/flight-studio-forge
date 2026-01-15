@@ -1,3 +1,8 @@
+/**
+ * Component: ProductGallery
+ * Responsibility: Product image gallery with lightbox
+ * Used by: ProductDetail page
+ */
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { X } from 'lucide-react';

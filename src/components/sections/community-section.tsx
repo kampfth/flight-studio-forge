@@ -1,3 +1,8 @@
+/**
+ * Component: CommunitySection
+ * Responsibility: Facebook follow CTA section on homepage
+ * Used by: Index page
+ */
 import { motion } from 'framer-motion';
 import { Facebook, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';

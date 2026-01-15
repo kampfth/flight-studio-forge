@@ -1,13 +1,23 @@
-import { Link, useLocation } from 'react-router-dom';
+/**
+ * Component: Header
+ * Responsibility: Top-level navigation, brand logo, and mobile menu
+ * Used by: Layout
+ */
+import { useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { Menu, X, Facebook } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { FACEBOOK_URL, NAV_ITEMS, BRAND_NAME } from '@/lib/constants';
+import { FACEBOOK_URL, NAV_ITEMS } from '@/lib/constants';
+import { Logo } from '@/components/common';
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+
+  const isActiveRoute = (href: string) => {
+    return location.pathname === href || location.pathname.startsWith(href + '/');
+  };
 
   return (
     <motion.header
@@ -19,30 +29,23 @@ export function Header() {
       <nav className="section-container">
         <div className="flex items-center justify-between h-14 md:h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2.5 group">
-            <div className="w-7 h-7 bg-foreground rounded-sm flex items-center justify-center transition-all duration-300 group-hover:scale-105">
-              <span className="font-mono font-bold text-background text-xs">4S</span>
-            </div>
-            <span className="font-mono font-medium text-sm tracking-tight hidden sm:block">
-              {BRAND_NAME}
-            </span>
-          </Link>
+          <Logo textClassName="hidden sm:block text-sm" />
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-7">
             {NAV_ITEMS.map((item) => (
-              <Link
+              <a
                 key={item.href}
-                to={item.href}
+                href={item.href}
                 className={cn(
                   'font-mono text-xs tracking-wide uppercase transition-colors duration-200',
-                  location.pathname === item.href || location.pathname.startsWith(item.href + '/')
+                  isActiveRoute(item.href)
                     ? 'text-foreground'
                     : 'text-muted-foreground hover:text-foreground'
                 )}
               >
                 {item.label}
-              </Link>
+              </a>
             ))}
             <a
               href={FACEBOOK_URL}
@@ -78,19 +81,19 @@ export function Header() {
           >
             <div className="section-container py-4 flex flex-col gap-1">
               {NAV_ITEMS.map((item) => (
-                <Link
+                <a
                   key={item.href}
-                  to={item.href}
+                  href={item.href}
                   onClick={() => setIsOpen(false)}
                   className={cn(
                     'font-mono text-sm py-2.5 transition-colors',
-                    location.pathname === item.href
+                    isActiveRoute(item.href)
                       ? 'text-foreground'
                       : 'text-muted-foreground hover:text-foreground'
                   )}
                 >
                   {item.label}
-                </Link>
+                </a>
               ))}
               <a
                 href={FACEBOOK_URL}
