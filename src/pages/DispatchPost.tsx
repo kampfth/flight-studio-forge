@@ -1,8 +1,11 @@
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Calendar } from 'lucide-react';
+import { ArrowLeft, Calendar, Tag, ArrowRight } from 'lucide-react';
 import { Layout } from '@/components/layout/layout';
 import { getDispatchBySlug } from '@/content/dispatch';
+import { getProductBySlug } from '@/content/products';
+import { PLACEHOLDERS } from '@/lib/constants';
+import { fadeUp } from '@/lib/motion';
 
 const DispatchPost = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -11,6 +14,11 @@ const DispatchPost = () => {
   if (!post) {
     return <Navigate to="/dispatch" replace />;
   }
+
+  // Get related products data
+  const relatedProductsData = post.relatedProducts
+    ?.map(slug => getProductBySlug(slug))
+    .filter(Boolean) || [];
 
   // Simple markdown-like rendering
   const renderContent = (content: string) => {
@@ -42,7 +50,7 @@ const DispatchPost = () => {
 
   return (
     <Layout>
-      <article className="py-24 md:py-32">
+      <article className="py-section-lg md:py-24">
         <div className="section-container">
           <div className="max-w-3xl mx-auto">
             {/* Back link */}
@@ -50,7 +58,7 @@ const DispatchPost = () => {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
-              className="mb-12"
+              className="mb-10"
             >
               <Link
                 to="/dispatch"
@@ -63,12 +71,12 @@ const DispatchPost = () => {
 
             {/* Header */}
             <motion.header
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="mb-12"
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              className="mb-10"
             >
-              <div className="flex items-center gap-3 text-sm text-muted-foreground font-mono mb-6">
+              <div className="flex items-center gap-3 text-sm text-muted-foreground font-mono mb-4">
                 <Calendar size={14} />
                 <time>
                   {new Date(post.date).toLocaleDateString('en-US', {
@@ -85,15 +93,32 @@ const DispatchPost = () => {
 
               <div className="flex flex-wrap gap-2">
                 {post.tags.map((tag) => (
-                  <span
+                  <Link
                     key={tag}
-                    className="px-3 py-1 text-xs font-mono bg-primary/10 text-primary rounded-full"
+                    to={`/dispatch?tag=${tag}`}
+                    className="px-3 py-1 text-xs font-mono bg-primary/10 text-primary rounded-full hover:bg-primary/20 transition-colors"
                   >
                     {tag}
-                  </span>
+                  </Link>
                 ))}
               </div>
             </motion.header>
+
+            {/* Featured Image */}
+            {post.image && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="mb-10 rounded-lg overflow-hidden"
+              >
+                <img 
+                  src={post.image || PLACEHOLDERS.dispatch[0]}
+                  alt={post.title}
+                  className="w-full aspect-video object-cover"
+                />
+              </motion.div>
+            )}
 
             {/* Content */}
             <motion.div
@@ -104,6 +129,51 @@ const DispatchPost = () => {
             >
               {renderContent(post.content)}
             </motion.div>
+
+            {/* Related Products */}
+            {relatedProductsData.length > 0 && (
+              <motion.section
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="mt-12 pt-10 border-t border-border/30"
+              >
+                <div className="flex items-center gap-2 mb-6">
+                  <Tag size={16} className="text-primary" />
+                  <h2 className="font-mono text-lg font-semibold">Related Products</h2>
+                </div>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {relatedProductsData.map((product) => product && (
+                    <Link
+                      key={product.slug}
+                      to={`/products/${product.slug}`}
+                      className="group flex items-center gap-4 p-4 rounded-lg border border-border/50 bg-card/30 hover:border-primary/30 hover:bg-card/50 transition-all duration-300"
+                    >
+                      <div className="w-16 h-16 rounded-md overflow-hidden bg-muted/20 flex-shrink-0">
+                        <img 
+                          src={PLACEHOLDERS.products[0]}
+                          alt={product.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <span className="text-[10px] font-mono uppercase text-primary">
+                          {product.category}
+                        </span>
+                        <h3 className="font-mono font-medium text-sm group-hover:text-primary transition-colors truncate">
+                          {product.name}
+                        </h3>
+                        <p className="text-xs text-muted-foreground truncate">
+                          {product.tagline}
+                        </p>
+                      </div>
+                      <ArrowRight size={16} className="text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                    </Link>
+                  ))}
+                </div>
+              </motion.section>
+            )}
           </div>
         </div>
       </article>

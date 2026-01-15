@@ -42,6 +42,18 @@ export interface DispatchPost {
   content: string;
   image?: string;
   tags: string[];
+  /** Product slugs related to this dispatch (for linking) */
+  relatedProducts?: string[];
+}
+
+/** Shared tag definitions for filtering/linking */
+export type ProductTag = 'a320' | 'a310' | '737' | 'crj' | 'vr' | 'utility' | 'livery' | 'pack' | 'update' | 'announcement' | 'roadmap' | 'philosophy';
+
+export interface PaginationState {
+  currentPage: number;
+  totalPages: number;
+  itemsPerPage: number;
+  totalItems: number;
 }
 
 export interface NavItem {

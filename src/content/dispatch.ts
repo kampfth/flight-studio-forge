@@ -25,6 +25,7 @@ We're exploring a cargo variant series. Let us know on Facebook if that interest
     `,
     image: '/placeholders/dispatch-01.jpg',
     tags: ['update', 'livery', 'a320'],
+    relatedProducts: ['livery-pack-neo-minimal'],
   },
   {
     slug: 'runway-notes-v23',
@@ -53,6 +54,7 @@ Thanks to everyone who reported issues. Keep them coming.
     `,
     image: '/placeholders/dispatch-02.jpg',
     tags: ['update', 'utility'],
+    relatedProducts: ['runway-notes'],
   },
   {
     slug: 'retroline-announced',
@@ -78,7 +80,8 @@ We've been collecting reference photos from aviation museums, historical societi
 Join our Facebook page for sneak peeks as we progress.
     `,
     image: '/placeholders/dispatch-03.jpg',
-    tags: ['announcement', 'livery', 'development'],
+    tags: ['announcement', 'livery'],
+    relatedProducts: ['livery-series-retroline'],
   },
   {
     slug: 'studio-philosophy',
@@ -104,7 +107,8 @@ Every product ships with proper docs. Installation guides, troubleshooting steps
 More utilities. More liveries. Maybe some surprises. Follow along on Facebook.
     `,
     image: '/placeholders/dispatch-04.jpg',
-    tags: ['philosophy', 'team'],
+    tags: ['philosophy'],
+    relatedProducts: [],
   },
   {
     slug: 'cabin-camera-vr-roadmap',
@@ -133,9 +137,99 @@ Patience appreciated. We'd rather delay than ship broken.
     `,
     image: '/placeholders/dispatch-05.jpg',
     tags: ['roadmap', 'utility', 'vr'],
+    relatedProducts: ['cabin-camera'],
+  },
+  {
+    slug: 'regional-express-launch',
+    title: 'Regional Express Pack — Now Available',
+    date: '2024-12-01',
+    excerpt: 'Short hops deserve sharp looks. 24 regional airline liveries released.',
+    content: `
+Regional Express Pack is now live on the marketplace.
+
+**What's Included:**
+- 24 liveries covering regional operators often overlooked
+- ATR 42/72, Aerosoft CRJ, and E-Jets
+- Airlines from Europe, Asia, and the Americas
+
+**Why Regional?**
+The big carriers get all the attention. We wanted to give some love to the routes that connect smaller cities, the turboprops that hop between islands, the jets that serve communities.
+
+**Community Requests:**
+Several liveries in this pack came directly from user suggestions. Keep them coming.
+    `,
+    image: '/placeholders/dispatch-06.jpg',
+    tags: ['announcement', 'livery', 'pack'],
+    relatedProducts: ['livery-regional-express'],
+  },
+  {
+    slug: 'checklist-master-simbrief',
+    title: 'Checklist Master — SimBrief Integration Coming',
+    date: '2024-11-15',
+    excerpt: 'Direct OFP import landing in v1.6.',
+    content: `
+One of the most requested features for Checklist Master is finally in development.
+
+**SimBrief Integration:**
+- Import your OFP directly
+- Auto-populate weights and fuel
+- Route information displayed inline
+
+**Other v1.6 Features:**
+- Improved voice synthesis quality
+- New compact mode for smaller screens
+- Better handling of interrupted checklists
+
+Expected release: Late January 2025.
+    `,
+    image: '/placeholders/dispatch-01.jpg',
+    tags: ['roadmap', 'utility'],
+    relatedProducts: ['checklist-master'],
+  },
+  {
+    slug: 'night-ops-v2-update',
+    title: 'Night Ops v2.0 — Multi-Aircraft Expansion',
+    date: '2024-09-20',
+    excerpt: 'The stealth collection grows with 6 new aircraft.',
+    content: `
+Night Ops just doubled in size.
+
+**New Aircraft:**
+- PMDG 777
+- Fenix A320
+- iniBuilds A310
+- ATR 72
+- Working Title CJ4
+- HPG H145
+
+**Improvements:**
+- Revised matte textures with better specular response
+- Unified registration fonts across all aircraft
+- Documentation updated with installation notes per aircraft
+
+The blacked-out fleet is ready for night operations.
+    `,
+    image: '/placeholders/dispatch-02.jpg',
+    tags: ['update', 'livery'],
+    relatedProducts: ['fleet-livery-night-ops'],
   },
 ];
 
 export const getDispatchBySlug = (slug: string): DispatchPost | undefined => {
   return dispatchPosts.find((p) => p.slug === slug);
+};
+
+export const getDispatchesByProduct = (productSlug: string): DispatchPost[] => {
+  return dispatchPosts.filter((p) => p.relatedProducts?.includes(productSlug));
+};
+
+export const getDispatchesByTag = (tag: string): DispatchPost[] => {
+  return dispatchPosts.filter((p) => p.tags.includes(tag));
+};
+
+/** Get unique tags from all dispatch posts for filtering */
+export const getAllDispatchTags = (): string[] => {
+  const tags = new Set<string>();
+  dispatchPosts.forEach((p) => p.tags.forEach((t) => tags.add(t)));
+  return Array.from(tags).sort();
 };
