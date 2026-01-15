@@ -31,7 +31,7 @@ const ProductDetail = () => {
   return (
     <Layout>
       <ProductHero product={product} />
-      <ProductIntro description={product.description} />
+      <ProductIntro description={product.description} richDescription={product.richDescription} />
       <ProductFeatures features={product.features} />
       
       {product.specs && product.specs.length > 0 && (
