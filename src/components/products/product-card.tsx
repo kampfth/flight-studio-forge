@@ -52,6 +52,7 @@ export function ProductCard({ product, index }: ProductCardProps) {
   return (
     <motion.article
       ref={cardRef}
+      data-qa={`site-product-card-${product.slug}`}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-30px' }}
@@ -62,7 +63,8 @@ export function ProductCard({ product, index }: ProductCardProps) {
     >
       <Link
         to={getProductRoute(product.slug)}
-        className="group block relative overflow-hidden rounded-lg bg-card border border-border/50 transition-all duration-300 hover:border-primary/30 hover:shadow-card"
+        className="group relative block overflow-hidden rounded-lg border border-border/50 bg-card transition-all duration-300 hover:border-primary/30 hover:shadow-card"
+        aria-label={`View ${product.name}`}
       >
         {/* Image container - compact aspect ratio */}
         <div className="relative aspect-[16/9] overflow-hidden bg-muted/20">
@@ -70,20 +72,20 @@ export function ProductCard({ product, index }: ProductCardProps) {
           <img 
             src={product.heroImage || placeholderImage}
             alt={product.name}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
 
           {/* Hover overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           
           {/* Arrow indicator */}
-          <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-background/80 backdrop-blur flex items-center justify-center opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200">
+          <div className="absolute top-3 right-3 flex h-8 w-8 scale-90 items-center justify-center rounded-full bg-background/80 opacity-0 backdrop-blur transition-all duration-200 group-hover:scale-100 group-hover:opacity-100">
             <ArrowUpRight size={14} className="text-foreground" />
           </div>
 
           {/* Category badge */}
           <div className="absolute bottom-3 left-3">
-            <span className="inline-block px-2.5 py-1 bg-background/80 backdrop-blur rounded font-mono text-[10px] tracking-wider text-muted-foreground uppercase">
+            <span className="inline-block rounded bg-background/80 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-muted-foreground backdrop-blur">
               {categoryLabels[product.category]}
             </span>
           </div>
@@ -92,18 +94,18 @@ export function ProductCard({ product, index }: ProductCardProps) {
         {/* Content - compact padding */}
         <div className="p-4">
           {/* Title */}
-          <h3 className="font-mono font-medium text-sm mb-1 group-hover:text-foreground transition-colors line-clamp-1">
+          <h3 className="mb-1 font-mono text-sm font-medium line-clamp-1 transition-colors group-hover:text-foreground">
             {product.name}
           </h3>
 
           {/* Tagline */}
-          <p className="text-muted-foreground text-xs line-clamp-1">
+          <p className="text-xs text-muted-foreground line-clamp-1">
             {product.tagline}
           </p>
         </div>
 
         {/* Bottom accent line on hover */}
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+        <div className="absolute bottom-0 left-0 right-0 h-px scale-x-0 bg-gradient-to-r from-transparent via-primary/40 to-transparent transition-transform duration-300 group-hover:scale-x-100" />
       </Link>
     </motion.article>
   );

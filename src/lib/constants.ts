@@ -1,13 +1,36 @@
-// Social & External Links
+/**
+ * Constants Library
+ * Responsibility: Centralized application constants and configuration
+ * Used by: Components, pages, and utilities throughout the application
+ */
+
+// =============================================================================
+// BRAND
+// =============================================================================
+
+export const BRAND_NAME = '4Simmers';
+export const BRAND_TAGLINE = 'Liveries & Utilities for MSFS';
+
+// =============================================================================
+// EXTERNAL LINKS
+// =============================================================================
+
 export const FACEBOOK_URL = 'https://www.facebook.com/4simmers/';
 export const SUPPORT_URL = 'https://example.com/support'; // TODO: Replace with actual support URL
 export const MARKETPLACE_URL = '#'; // TODO: Replace with actual marketplace link
 
-// Brand
-export const BRAND_NAME = '4Simmers';
-export const BRAND_TAGLINE = 'Liveries & Utilities for MSFS';
+// =============================================================================
+// SOCIAL LINKS
+// =============================================================================
 
-// Navigation
+export const SOCIAL_LINKS = {
+  facebook: FACEBOOK_URL,
+} as const;
+
+// =============================================================================
+// NAVIGATION
+// =============================================================================
+
 export const NAV_ITEMS = [
   { label: 'Hangar', href: '/products' },
   { label: 'Dispatch', href: '/dispatch' },
@@ -15,7 +38,10 @@ export const NAV_ITEMS = [
   { label: 'Contact', href: '/contact' },
 ] as const;
 
-// Product Categories
+// =============================================================================
+// PRODUCT CATEGORIES
+// =============================================================================
+
 export const PRODUCT_CATEGORIES = [
   { value: 'all', label: 'All' },
   { value: 'livery', label: 'Liveries' },
@@ -23,7 +49,10 @@ export const PRODUCT_CATEGORIES = [
   { value: 'pack', label: 'Packs' },
 ] as const;
 
-// Placeholder Images
+// =============================================================================
+// PLACEHOLDER IMAGES
+// =============================================================================
+
 export const PLACEHOLDERS = {
   hero: [
     '/placeholders/hero-01.jpg',

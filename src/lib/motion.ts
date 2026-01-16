@@ -1,6 +1,37 @@
+/**
+ * Motion Library
+ * Responsibility: Centralized Framer Motion variants, transitions, and helpers
+ * Used by: All animated components throughout the application
+ */
 import { Variants, Transition } from 'framer-motion';
+import { useState, useEffect } from 'react';
 
-// Transition presets
+// =============================================================================
+// REDUCED MOTION HOOK
+// =============================================================================
+
+/**
+ * Hook to detect user preference for reduced motion
+ * @returns boolean indicating if reduced motion is preferred
+ */
+export function useReducedMotion(): boolean {
+  const [prefersReduced, setPrefersReduced] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReduced(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setPrefersReduced(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+
+  return prefersReduced;
+}
+
+// =============================================================================
+// TRANSITIONS
+// =============================================================================
+
 export const springTransition: Transition = {
   type: 'spring',
   stiffness: 300,

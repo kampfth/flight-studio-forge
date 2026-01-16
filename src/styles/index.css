@@ -1,3 +1,9 @@
+/**
+ * Global Styles
+ * Responsibility: CSS variables, base styles, component utilities
+ * Used by: Entire application via main.tsx import
+ */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,6 +15,10 @@
 @import '@fontsource/inter/400.css';
 @import '@fontsource/inter/500.css';
 @import '@fontsource/inter/600.css';
+
+/* =============================================================================
+   CSS VARIABLES - Design Tokens
+   ============================================================================= */
 
 @layer base {
   :root {
@@ -61,6 +71,10 @@
   }
 }
 
+/* =============================================================================
+   BASE STYLES
+   ============================================================================= */
+
 @layer base {
   * {
     @apply border-border;
@@ -79,7 +93,12 @@
   }
 }
 
+/* =============================================================================
+   COMPONENT CLASSES
+   ============================================================================= */
+
 @layer components {
+  /* Typography utilities */
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70;
   }
@@ -88,10 +107,12 @@
     @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70;
   }
 
+  /* Glow effects */
   .glow-border {
     box-shadow: 0 0 15px hsl(var(--primary) / 0.1), inset 0 0 15px hsl(var(--primary) / 0.02);
   }
 
+  /* Glass morphism */
   .glass {
     @apply bg-background/90 backdrop-blur-xl border-b border-border/40;
   }
@@ -100,14 +121,30 @@
     @apply bg-card/80 backdrop-blur-sm border border-border/50;
   }
 
+  /* Layout utilities */
   .section-container {
     @apply max-w-6xl mx-auto px-5 lg:px-8;
   }
 
+  /* Semantic spacing tokens */
+  .py-section-sm {
+    @apply py-12 md:py-16;
+  }
+
+  .py-section-md {
+    @apply py-16 md:py-24;
+  }
+
+  .py-section-lg {
+    @apply py-24 md:py-32;
+  }
+
+  /* Font utility */
   .mono {
     font-family: 'IBM Plex Mono', monospace;
   }
 
+  /* Link utilities */
   .link-underline {
     @apply relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full;
   }
@@ -153,6 +190,10 @@
     background: hsl(var(--muted-foreground));
   }
 }
+
+/* =============================================================================
+   UTILITIES
+   ============================================================================= */
 
 @layer utilities {
   .text-balance {
