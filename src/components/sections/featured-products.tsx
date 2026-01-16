@@ -1,6 +1,6 @@
 /**
  * Component: FeaturedProducts
- * Responsibility: Display featured products with enhanced animations and glassmorphism
+ * Responsibility: Display featured products with glassmorphism and animations
  * Used by: Index page
  */
 import { motion, useScroll, useTransform } from 'framer-motion';
@@ -9,9 +9,9 @@ import { ArrowRight, Box } from 'lucide-react';
 import { products } from '@/content/products';
 import { ProductCard } from '@/components/products/product-card';
 import { Button } from '@/components/ui/button';
-import { useRef } from 'react';
+import { forwardRef, useRef } from 'react';
 
-export function FeaturedProducts() {
+export const FeaturedProducts = forwardRef<HTMLElement>((_, ref) => {
   const featuredProducts = products.slice(0, 6);
   const containerRef = useRef<HTMLElement>(null);
   
@@ -23,7 +23,17 @@ export function FeaturedProducts() {
   const y = useTransform(scrollYProgress, [0, 1], [50, -50]);
 
   return (
-    <section ref={containerRef} className="relative py-24 md:py-32 overflow-hidden">
+    <section 
+      ref={(el) => {
+        (containerRef as React.MutableRefObject<HTMLElement | null>).current = el;
+        if (typeof ref === 'function') {
+          ref(el);
+        } else if (ref) {
+          ref.current = el;
+        }
+      }}
+      className="relative min-h-screen py-24 md:py-32 overflow-hidden snap-start"
+    >
       {/* Animated background */}
       <motion.div 
         className="absolute inset-0 pointer-events-none"
@@ -118,4 +128,6 @@ export function FeaturedProducts() {
       </div>
     </section>
   );
-}
+});
+
+FeaturedProducts.displayName = 'FeaturedProducts';

@@ -1,3 +1,7 @@
+/**
+ * Page: ProductDetail
+ * Responsibility: Product detail page with glassmorphism styling
+ */
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -44,8 +48,13 @@ const ProductDetail = () => {
 
       {/* Related Dispatch Posts */}
       {relatedDispatches.length > 0 && (
-        <section className="py-section-md border-t border-border/30">
-          <div className="section-container">
+        <section className="relative py-16 md:py-24 overflow-hidden">
+          {/* Background glow */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-0 left-1/2 w-[600px] h-[300px] bg-primary/5 rounded-full blur-[100px] -translate-x-1/2" />
+          </div>
+
+          <div className="section-container relative">
             <motion.div
               variants={fadeUp}
               initial="hidden"
@@ -53,9 +62,11 @@ const ProductDetail = () => {
               viewport={{ once: true }}
               className="mb-8"
             >
-              <span className="font-mono text-primary text-xs tracking-[0.2em] uppercase mb-2 block">
-                Updates
-              </span>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 backdrop-blur-md border border-white/10 mb-4">
+                <span className="font-mono text-muted-foreground text-xs tracking-[0.15em] uppercase">
+                  Updates
+                </span>
+              </div>
               <h2 className="text-2xl md:text-3xl font-mono font-bold">
                 Changelog & News
               </h2>
@@ -72,9 +83,9 @@ const ProductDetail = () => {
                 <motion.div key={post.slug} variants={staggerItem}>
                   <Link
                     to={`/dispatch/${post.slug}`}
-                    className="group flex items-center gap-4 p-4 rounded-lg border border-border/50 bg-card/30 hover:border-primary/30 hover:bg-card/50 transition-all duration-300"
+                    className="group flex items-center gap-4 p-4 rounded-xl bg-white/[0.02] backdrop-blur-md border border-white/10 hover:border-primary/30 hover:bg-white/[0.05] transition-all duration-300"
                   >
-                    <div className="w-16 h-12 rounded overflow-hidden bg-muted/20 flex-shrink-0">
+                    <div className="w-16 h-12 rounded-lg overflow-hidden bg-white/5 flex-shrink-0">
                       <img 
                         src={post.image || PLACEHOLDERS.dispatch[index % PLACEHOLDERS.dispatch.length]}
                         alt={post.title}
@@ -131,8 +142,13 @@ const ProductDetail = () => {
 
       {/* Related Products */}
       {relatedProducts.length > 0 && (
-        <section className="py-section-md border-t border-border/30">
-          <div className="section-container">
+        <section className="relative py-16 md:py-24 overflow-hidden">
+          {/* Background glow */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute bottom-0 right-0 w-[500px] h-[300px] bg-accent/5 rounded-full blur-[100px] translate-x-1/2" />
+          </div>
+
+          <div className="section-container relative">
             <motion.div
               variants={fadeUp}
               initial="hidden"
@@ -140,16 +156,18 @@ const ProductDetail = () => {
               viewport={{ once: true }}
               className="mb-8"
             >
-              <span className="font-mono text-primary text-xs tracking-[0.2em] uppercase mb-2 block">
-                More from the Hangar
-              </span>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 backdrop-blur-md border border-white/10 mb-4">
+                <span className="font-mono text-muted-foreground text-xs tracking-[0.15em] uppercase">
+                  More from the Hangar
+                </span>
+              </div>
               <h2 className="text-2xl md:text-3xl font-mono font-bold">
                 Related Products
               </h2>
             </motion.div>
 
             <motion.div 
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"

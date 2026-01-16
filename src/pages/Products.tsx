@@ -1,12 +1,16 @@
+/**
+ * Page: Products (Hangar)
+ * Responsibility: Product gallery with glassmorphism styling
+ */
 import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Search, ChevronLeft, ChevronRight, Box } from 'lucide-react';
 import { Layout } from '@/components/layout/layout';
 import { ProductCard } from '@/components/products/product-card';
 import { products } from '@/content/products';
 import { cn } from '@/lib/utils';
 import { PRODUCT_CATEGORIES } from '@/lib/constants';
-import { staggerContainer, fadeUp } from '@/lib/motion';
+import { staggerContainer, staggerItem } from '@/lib/motion';
 import { usePagination } from '@/hooks/use-pagination';
 import { useIsMobile } from '@/hooks/use-mobile';
 
@@ -58,14 +62,12 @@ const Products = () => {
     if (totalPages <= maxVisible) {
       for (let i = 1; i <= totalPages; i++) pages.push(i);
     } else {
-      // Always show first page
       pages.push(1);
       
       if (currentPage > 3) {
         pages.push('ellipsis');
       }
       
-      // Pages around current
       const start = Math.max(2, currentPage - 1);
       const end = Math.min(totalPages - 1, currentPage + 1);
       
@@ -77,7 +79,6 @@ const Products = () => {
         pages.push('ellipsis');
       }
       
-      // Always show last page
       if (!pages.includes(totalPages)) pages.push(totalPages);
     }
     
@@ -86,28 +87,81 @@ const Products = () => {
 
   return (
     <Layout>
-      <section className="py-section-lg md:py-24">
-        <div className="section-container">
-          {/* Header */}
+      <section className="relative py-24 md:py-32 min-h-screen overflow-hidden">
+        {/* Animated background */}
+        <div className="absolute inset-0 pointer-events-none">
           <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            className="mb-8"
+            className="absolute w-[600px] h-[600px] rounded-full"
+            style={{
+              background: 'radial-gradient(circle, hsl(var(--primary) / 0.08) 0%, transparent 70%)',
+              filter: 'blur(80px)',
+              top: '10%',
+              right: '-10%',
+            }}
+            animate={{
+              x: [0, 50, 0],
+              y: [0, -30, 0],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+          <motion.div
+            className="absolute w-[500px] h-[500px] rounded-full"
+            style={{
+              background: 'radial-gradient(circle, hsl(var(--accent) / 0.06) 0%, transparent 70%)',
+              filter: 'blur(100px)',
+              bottom: '5%',
+              left: '-10%',
+            }}
+            animate={{
+              x: [0, -40, 0],
+              y: [0, 40, 0],
+            }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              ease: 'easeInOut',
+              delay: 5,
+            }}
+          />
+        </div>
+
+        {/* Grid overlay */}
+        <div className="absolute inset-0 grid-overlay opacity-10" />
+
+        <div className="section-container relative">
+          {/* Header with glassmorphism */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-10"
           >
-            <span className="font-mono text-primary text-sm tracking-[0.2em] uppercase mb-4 block">
-              The Hangar
-            </span>
-            <h1 className="text-4xl md:text-5xl font-mono font-bold mb-4">
-              Our Releases
+            <motion.div 
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 mb-4"
+              whileHover={{ scale: 1.02 }}
+            >
+              <Box size={14} className="text-primary" />
+              <span className="font-mono text-muted-foreground text-xs tracking-[0.2em] uppercase">
+                The Hangar
+              </span>
+            </motion.div>
+            
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-mono font-bold mb-4">
+              Our{' '}
+              <span className="text-gradient bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
+                Releases
+              </span>
             </h1>
-            <p className="text-muted-foreground max-w-2xl">
+            <p className="text-muted-foreground max-w-2xl text-lg">
               Every product is crafted with obsessive attention to detail. 
               No shovelware. No half-measures.
             </p>
           </motion.div>
 
-          {/* Filters & Search */}
+          {/* Filters & Search with glassmorphism */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -121,10 +175,10 @@ const Products = () => {
                   key={category.value}
                   onClick={() => setActiveCategory(category.value as Category)}
                   className={cn(
-                    'px-4 py-2 rounded-md font-mono text-xs transition-all duration-300',
+                    'px-4 py-2 rounded-lg font-mono text-xs transition-all duration-300 backdrop-blur-md',
                     activeCategory === category.value
                       ? 'bg-foreground text-background'
-                      : 'bg-card border border-border/50 text-muted-foreground hover:text-foreground hover:border-border'
+                      : 'bg-white/5 border border-white/10 text-muted-foreground hover:text-foreground hover:border-white/20 hover:bg-white/10'
                   )}
                 >
                   {category.label}
@@ -132,7 +186,7 @@ const Products = () => {
               ))}
             </div>
 
-            {/* Search */}
+            {/* Search with glassmorphism */}
             <div className="relative sm:ml-auto">
               <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
               <input
@@ -140,7 +194,7 @@ const Products = () => {
                 placeholder="Search..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full sm:w-56 pl-9 pr-4 py-2 rounded-md bg-card border border-border/50 font-mono text-sm placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 transition-colors"
+                className="w-full sm:w-56 pl-9 pr-4 py-2 rounded-lg bg-white/5 backdrop-blur-md border border-white/10 font-mono text-sm placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 transition-colors"
               />
             </div>
           </motion.div>
@@ -165,7 +219,7 @@ const Products = () => {
           <AnimatePresence mode="wait">
             <motion.div 
               key={`${activeCategory}-${searchQuery}-${currentPage}`}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
               variants={staggerContainer}
               initial="hidden"
               animate="visible"
@@ -182,21 +236,24 @@ const Products = () => {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="text-center py-16"
+              className="text-center py-24"
             >
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/5 backdrop-blur-md border border-white/10 mb-4">
+                <Box size={24} className="text-muted-foreground" />
+              </div>
               <p className="text-muted-foreground font-mono">
                 No products found.
               </p>
             </motion.div>
           )}
 
-          {/* Pagination */}
+          {/* Pagination with glassmorphism */}
           {totalPages > 1 && (
             <motion.nav
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="flex items-center justify-center gap-1 mt-10"
+              className="flex items-center justify-center gap-1 mt-12"
               aria-label="Pagination"
             >
               {/* Previous */}
@@ -204,10 +261,10 @@ const Products = () => {
                 onClick={prevPage}
                 disabled={!hasPrevPage}
                 className={cn(
-                  'flex items-center gap-1 px-3 py-2 rounded-md font-mono text-sm transition-all duration-200',
+                  'flex items-center gap-1 px-3 py-2 rounded-lg font-mono text-sm transition-all duration-200 backdrop-blur-md',
                   hasPrevPage
-                    ? 'bg-card border border-border/50 hover:border-primary/30 hover:bg-card/80'
-                    : 'opacity-40 cursor-not-allowed bg-card/30'
+                    ? 'bg-white/5 border border-white/10 hover:border-primary/30 hover:bg-white/10'
+                    : 'opacity-40 cursor-not-allowed bg-white/[0.02]'
                 )}
                 aria-label="Previous page"
               >
@@ -230,10 +287,10 @@ const Products = () => {
                       key={page}
                       onClick={() => goToPage(page)}
                       className={cn(
-                        'w-10 h-10 rounded-md font-mono text-sm transition-all duration-200',
+                        'w-10 h-10 rounded-lg font-mono text-sm transition-all duration-200',
                         currentPage === page
                           ? 'bg-foreground text-background'
-                          : 'bg-card border border-border/50 hover:border-primary/30 hover:bg-card/80'
+                          : 'bg-white/5 backdrop-blur-md border border-white/10 hover:border-primary/30 hover:bg-white/10'
                       )}
                       aria-label={`Page ${page}`}
                       aria-current={currentPage === page ? 'page' : undefined}
@@ -249,10 +306,10 @@ const Products = () => {
                 onClick={nextPage}
                 disabled={!hasNextPage}
                 className={cn(
-                  'flex items-center gap-1 px-3 py-2 rounded-md font-mono text-sm transition-all duration-200',
+                  'flex items-center gap-1 px-3 py-2 rounded-lg font-mono text-sm transition-all duration-200 backdrop-blur-md',
                   hasNextPage
-                    ? 'bg-card border border-border/50 hover:border-primary/30 hover:bg-card/80'
-                    : 'opacity-40 cursor-not-allowed bg-card/30'
+                    ? 'bg-white/5 border border-white/10 hover:border-primary/30 hover:bg-white/10'
+                    : 'opacity-40 cursor-not-allowed bg-white/[0.02]'
                 )}
                 aria-label="Next page"
               >
