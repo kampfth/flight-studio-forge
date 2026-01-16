@@ -1,3 +1,7 @@
+/**
+ * Page: DispatchPost
+ * Responsibility: Individual dispatch post with glassmorphism styling
+ */
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Calendar, Tag, ArrowRight } from 'lucide-react';
@@ -5,7 +9,7 @@ import { Layout } from '@/components/layout/layout';
 import { getDispatchBySlug } from '@/content/dispatch';
 import { getProductBySlug } from '@/content/products';
 import { PLACEHOLDERS } from '@/lib/constants';
-import { fadeUp } from '@/lib/motion';
+import { fadeUp, staggerContainer, staggerItem } from '@/lib/motion';
 
 const DispatchPost = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -50,10 +54,35 @@ const DispatchPost = () => {
 
   return (
     <Layout>
-      <article className="py-section-lg md:py-24">
-        <div className="section-container">
+      <article className="relative py-24 md:py-32 min-h-screen overflow-hidden">
+        {/* Animated background */}
+        <div className="absolute inset-0 pointer-events-none">
+          <motion.div
+            className="absolute w-[600px] h-[600px] rounded-full"
+            style={{
+              background: 'radial-gradient(circle, hsl(var(--primary) / 0.06) 0%, transparent 70%)',
+              filter: 'blur(100px)',
+              top: '0%',
+              right: '-15%',
+            }}
+            animate={{
+              x: [0, 30, 0],
+              y: [0, 20, 0],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+        </div>
+
+        {/* Grid overlay */}
+        <div className="absolute inset-0 grid-overlay opacity-10" />
+
+        <div className="section-container relative">
           <div className="max-w-3xl mx-auto">
-            {/* Back link */}
+            {/* Back link with glassmorphism */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -62,7 +91,7 @@ const DispatchPost = () => {
             >
               <Link
                 to="/dispatch"
-                className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors font-mono text-sm"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 backdrop-blur-md border border-white/10 text-muted-foreground hover:text-foreground hover:border-white/20 transition-all font-mono text-sm"
               >
                 <ArrowLeft size={16} />
                 Back to Dispatch
@@ -96,7 +125,7 @@ const DispatchPost = () => {
                   <Link
                     key={tag}
                     to={`/dispatch?tag=${tag}`}
-                    className="px-3 py-1 text-xs font-mono bg-primary/10 text-primary rounded-full hover:bg-primary/20 transition-colors"
+                    className="px-3 py-1.5 text-xs font-mono bg-primary/10 text-primary rounded-lg hover:bg-primary/20 transition-colors"
                   >
                     {tag}
                   </Link>
@@ -104,13 +133,13 @@ const DispatchPost = () => {
               </div>
             </motion.header>
 
-            {/* Featured Image */}
+            {/* Featured Image with glassmorphism border */}
             {post.image && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="mb-10 rounded-lg overflow-hidden"
+                className="mb-10 rounded-xl overflow-hidden border border-white/10"
               >
                 <img 
                   src={post.image || PLACEHOLDERS.dispatch[0]}
@@ -130,48 +159,56 @@ const DispatchPost = () => {
               {renderContent(post.content)}
             </motion.div>
 
-            {/* Related Products */}
+            {/* Related Products with glassmorphism */}
             {relatedProductsData.length > 0 && (
               <motion.section
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="mt-12 pt-10 border-t border-border/30"
+                className="mt-16 pt-10 border-t border-white/10"
               >
                 <div className="flex items-center gap-2 mb-6">
-                  <Tag size={16} className="text-primary" />
-                  <h2 className="font-mono text-lg font-semibold">Related Products</h2>
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 backdrop-blur-md border border-white/10">
+                    <Tag size={12} className="text-primary" />
+                    <span className="font-mono text-xs uppercase tracking-wider">Related Products</span>
+                  </div>
                 </div>
                 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <motion.div 
+                  className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+                  variants={staggerContainer}
+                  initial="hidden"
+                  animate="visible"
+                >
                   {relatedProductsData.map((product) => product && (
-                    <Link
-                      key={product.slug}
-                      to={`/products/${product.slug}`}
-                      className="group flex items-center gap-4 p-4 rounded-lg border border-border/50 bg-card/30 hover:border-primary/30 hover:bg-card/50 transition-all duration-300"
-                    >
-                      <div className="w-16 h-16 rounded-md overflow-hidden bg-muted/20 flex-shrink-0">
-                        <img 
-                          src={PLACEHOLDERS.products[0]}
-                          alt={product.name}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <span className="text-[10px] font-mono uppercase text-primary">
-                          {product.category}
-                        </span>
-                        <h3 className="font-mono font-medium text-sm group-hover:text-primary transition-colors truncate">
-                          {product.name}
-                        </h3>
-                        <p className="text-xs text-muted-foreground truncate">
-                          {product.tagline}
-                        </p>
-                      </div>
-                      <ArrowRight size={16} className="text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
-                    </Link>
+                    <motion.div key={product.slug} variants={staggerItem}>
+                      <Link
+                        to={`/products/${product.slug}`}
+                        className="group flex items-center gap-4 p-4 rounded-xl bg-white/[0.02] backdrop-blur-md border border-white/10 hover:border-primary/30 hover:bg-white/[0.05] transition-all duration-300"
+                      >
+                        <div className="w-16 h-16 rounded-lg overflow-hidden bg-white/5 flex-shrink-0">
+                          <img 
+                            src={PLACEHOLDERS.products[0]}
+                            alt={product.name}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <span className="text-[10px] font-mono uppercase text-primary">
+                            {product.category}
+                          </span>
+                          <h3 className="font-mono font-medium text-sm group-hover:text-primary transition-colors truncate">
+                            {product.name}
+                          </h3>
+                          <p className="text-xs text-muted-foreground truncate">
+                            {product.tagline}
+                          </p>
+                        </div>
+                        <ArrowRight size={16} className="text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                      </Link>
+                    </motion.div>
                   ))}
-                </div>
+                </motion.div>
               </motion.section>
             )}
           </div>

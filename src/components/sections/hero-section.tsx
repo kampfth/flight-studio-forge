@@ -1,6 +1,6 @@
 /**
  * Component: HeroSection
- * Responsibility: Homepage hero with animated background, glassmorphism, scroll effects
+ * Responsibility: Homepage hero with 100vh, scroll snap, animated background, glassmorphism
  * Used by: Index page
  */
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
@@ -11,7 +11,11 @@ import { PLACEHOLDERS } from '@/lib/constants';
 import { staggerContainer, staggerItem } from '@/lib/motion';
 import { useEffect, useRef } from 'react';
 
-export function HeroSection() {
+interface HeroSectionProps {
+  onScrollToContent?: () => void;
+}
+
+export function HeroSection({ onScrollToContent }: HeroSectionProps) {
   const containerRef = useRef<HTMLElement>(null);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -38,12 +42,17 @@ export function HeroSection() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, [mouseX, mouseY]);
 
-  const scrollToContent = () => {
-    window.scrollTo({ top: window.innerHeight * 0.85, behavior: 'smooth' });
+  const handleScrollToContent = () => {
+    if (onScrollToContent) {
+      onScrollToContent();
+    }
   };
 
   return (
-    <section ref={containerRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section 
+      ref={containerRef} 
+      className="relative h-screen flex items-center justify-center overflow-hidden snap-start snap-always"
+    >
       {/* Background Image with Parallax */}
       <motion.div 
         className="absolute inset-0"
@@ -134,7 +143,7 @@ export function HeroSection() {
 
       {/* Main content with glassmorphism */}
       <motion.div 
-        className="section-container relative z-10 pt-20"
+        className="section-container relative z-10"
         style={{ opacity }}
       >
         <motion.div 
@@ -218,7 +227,7 @@ export function HeroSection() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 1 }}
-        onClick={scrollToContent}
+        onClick={handleScrollToContent}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 group"
         aria-label="Scroll to content"
       >
