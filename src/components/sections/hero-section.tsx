@@ -3,13 +3,14 @@
  * Responsibility: Ultra-futuristic homepage hero with 100vh, scroll snap, advanced motion
  * Used by: Index page
  */
-import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { ArrowRight, ChevronDown, Plane, Sparkles, Zap } from 'lucide-react';
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
+import { ArrowRight, Plane, Sparkles, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { PLACEHOLDERS } from '@/lib/constants';
 import { staggerContainer, staggerItem } from '@/lib/motion';
 import { useEffect, useRef, useState } from 'react';
+import { PageTransition } from '@/components/transitions/PageTransition';
+import { usePageTransition } from '@/hooks/use-page-transition';
 
 interface HeroSectionProps {
   onScrollToContent?: () => void;
@@ -20,6 +21,7 @@ export function HeroSection({ onScrollToContent }: HeroSectionProps) {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const [isHovering, setIsHovering] = useState(false);
+  const { isTransitioning, startTransition, completeTransition } = usePageTransition();
   
   const springConfig = { damping: 20, stiffness: 100 };
   const moveX = useSpring(useTransform(mouseX, [0, 1], [-30, 30]), springConfig);
@@ -293,26 +295,24 @@ export function HeroSection({ onScrollToContent }: HeroSectionProps) {
               whileTap={{ scale: 0.98 }}
             >
               <Button 
-                asChild 
                 size="lg" 
+                onClick={() => startTransition('/products')}
                 className="group relative overflow-hidden bg-foreground text-background hover:bg-foreground/90 px-10 py-6 text-base rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.3)]"
               >
-                <Link to="/products">
-                  <span className="relative z-10 flex items-center gap-2 font-mono font-semibold">
-                    <Plane size={18} />
-                    Enter the Hangar
-                    <ArrowRight className="transition-transform group-hover:translate-x-1" size={18} />
-                  </span>
-                  {/* Animated gradient sweep */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-primary/30 via-accent/30 to-primary/30"
-                    initial={{ x: '-100%' }}
-                    whileHover={{ x: '100%' }}
-                    transition={{ duration: 0.6 }}
-                  />
-                  {/* Glow effect */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-primary/10 to-accent/10" />
-                </Link>
+                <span className="relative z-10 flex items-center gap-2 font-mono font-semibold">
+                  <Plane size={18} />
+                  Enter the Hangar
+                  <ArrowRight className="transition-transform group-hover:translate-x-1" size={18} />
+                </span>
+                {/* Animated gradient sweep */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-primary/30 via-accent/30 to-primary/30"
+                  initial={{ x: '-100%' }}
+                  whileHover={{ x: '100%' }}
+                  transition={{ duration: 0.6 }}
+                />
+                {/* Glow effect */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-primary/10 to-accent/10" />
               </Button>
             </motion.div>
             
@@ -348,6 +348,11 @@ export function HeroSection({ onScrollToContent }: HeroSectionProps) {
         </motion.div>
       </motion.div>
 
+      {/* Page transition overlay */}
+      <PageTransition 
+        isActive={isTransitioning} 
+        onComplete={completeTransition} 
+      />
     </section>
   );
 }
