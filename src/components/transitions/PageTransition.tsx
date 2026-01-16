@@ -12,14 +12,14 @@ interface PageTransitionProps {
 
 export function PageTransition({ isActive, onComplete }: PageTransitionProps) {
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {isActive && (
         <motion.div
-          className="fixed inset-0 z-[100] pointer-events-none"
-          initial="initial"
-          animate="animate"
-          exit="exit"
-          onAnimationComplete={onComplete}
+          className="fixed inset-0 z-[100]"
+          initial={{ opacity: 1 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.1 }}
         >
           {/* Radial warp effect from center */}
           <motion.div
@@ -28,12 +28,13 @@ export function PageTransition({ isActive, onComplete }: PageTransitionProps) {
             animate={{ 
               scale: 3,
               borderRadius: '0%',
-              transition: { 
-                duration: 0.8, 
-                ease: [0.76, 0, 0.24, 1] 
-              }
+            }}
+            transition={{ 
+              duration: 0.6, 
+              ease: [0.76, 0, 0.24, 1] 
             }}
             style={{ transformOrigin: 'center center' }}
+            onAnimationComplete={onComplete}
           />
 
           {/* Speed lines radiating from center */}
@@ -51,11 +52,11 @@ export function PageTransition({ isActive, onComplete }: PageTransitionProps) {
               animate={{
                 scaleX: [0, 1, 1],
                 opacity: [0, 1, 0],
-                transition: {
-                  duration: 0.6,
-                  delay: 0.1,
-                  ease: [0.76, 0, 0.24, 1],
-                }
+              }}
+              transition={{
+                duration: 0.5,
+                delay: 0.05,
+                ease: [0.76, 0, 0.24, 1],
               }}
             />
           ))}
@@ -65,23 +66,11 @@ export function PageTransition({ isActive, onComplete }: PageTransitionProps) {
             className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-primary"
             initial={{ width: 0, height: 0, opacity: 1 }}
             animate={{
-              width: ['0px', '200vw'],
-              height: ['0px', '200vw'],
-              opacity: [1, 0],
-              transition: { duration: 0.7, ease: [0.76, 0, 0.24, 1] }
+              width: '200vw',
+              height: '200vw',
+              opacity: 0,
             }}
-          />
-
-          {/* Secondary ring */}
-          <motion.div
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent/50"
-            initial={{ width: 0, height: 0, opacity: 1 }}
-            animate={{
-              width: ['0px', '180vw'],
-              height: ['0px', '180vw'],
-              opacity: [1, 0],
-              transition: { duration: 0.6, delay: 0.1, ease: [0.76, 0, 0.24, 1] }
-            }}
+            transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
           />
 
           {/* Flying plane icon */}
@@ -89,26 +78,22 @@ export function PageTransition({ isActive, onComplete }: PageTransitionProps) {
             className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
             initial={{ scale: 1, opacity: 1 }}
             animate={{
-              scale: [1, 1.5, 30],
-              opacity: [1, 1, 0],
-              rotate: [0, 0, 15],
-              transition: { 
-                duration: 0.7, 
-                ease: [0.76, 0, 0.24, 1],
-                times: [0, 0.3, 1]
-              }
+              scale: 20,
+              opacity: 0,
+              rotate: 15,
+            }}
+            transition={{ 
+              duration: 0.5, 
+              ease: [0.76, 0, 0.24, 1],
             }}
           >
             <div className="relative">
               <Plane size={48} className="text-primary" />
-              {/* Glow behind plane */}
               <motion.div
                 className="absolute inset-0 blur-xl"
                 initial={{ opacity: 0 }}
-                animate={{ 
-                  opacity: [0, 1, 0],
-                  transition: { duration: 0.5 }
-                }}
+                animate={{ opacity: [0, 1, 0] }}
+                transition={{ duration: 0.4 }}
               >
                 <Plane size={48} className="text-primary" />
               </motion.div>
@@ -122,10 +107,8 @@ export function PageTransition({ isActive, onComplete }: PageTransitionProps) {
               background: 'radial-gradient(circle at center, transparent 0%, hsl(var(--background)) 70%)',
             }}
             initial={{ opacity: 0 }}
-            animate={{ 
-              opacity: [0, 1],
-              transition: { duration: 0.5, delay: 0.2 }
-            }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
           />
         </motion.div>
       )}
