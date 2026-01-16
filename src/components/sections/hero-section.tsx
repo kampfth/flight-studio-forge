@@ -64,6 +64,11 @@ export function HeroSection({ onScrollToContent }: HeroSectionProps) {
       <motion.div 
         className="absolute inset-0"
         style={{ y: bgY, scale }}
+        animate={isTransitioning ? { 
+          scale: 1.8,
+          filter: 'blur(10px)',
+        } : {}}
+        transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
       >
         {/* Base image with mouse parallax */}
         <motion.div 
@@ -210,6 +215,16 @@ export function HeroSection({ onScrollToContent }: HeroSectionProps) {
       <motion.div 
         className="section-container relative z-10"
         style={{ opacity, y: textY, rotateX, perspective: 1000 }}
+        animate={isTransitioning ? { 
+          scale: 2.5, 
+          opacity: 0,
+          filter: 'blur(20px)',
+        } : { 
+          scale: 1, 
+          opacity: 1,
+          filter: 'blur(0px)',
+        }}
+        transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
       >
         <motion.div 
           className="max-w-5xl mx-auto text-center"

@@ -1,9 +1,8 @@
 /**
  * Component: PageTransition
- * Responsibility: Cinematic page transition overlay with warp effect
+ * Responsibility: Warp zoom transition - zooms into the page like traveling through it
  */
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plane } from 'lucide-react';
 
 interface PageTransitionProps {
   isActive: boolean;
@@ -15,100 +14,100 @@ export function PageTransition({ isActive, onComplete }: PageTransitionProps) {
     <AnimatePresence mode="wait">
       {isActive && (
         <motion.div
-          className="fixed inset-0 z-[100]"
-          initial={{ opacity: 1 }}
+          className="fixed inset-0 z-[100] overflow-hidden"
+          initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
           transition={{ duration: 0.1 }}
         >
-          {/* Radial warp effect from center */}
+          {/* Zoom blur overlay - creates the warp effect */}
           <motion.div
-            className="absolute inset-0 bg-background"
-            initial={{ scale: 0, borderRadius: '100%' }}
+            className="absolute inset-0"
+            style={{
+              background: 'radial-gradient(circle at center, transparent 0%, hsl(var(--background)) 80%)',
+            }}
+            initial={{ opacity: 0, scale: 1 }}
             animate={{ 
-              scale: 3,
-              borderRadius: '0%',
+              opacity: [0, 0.3, 1],
+              scale: [1, 1.5, 3],
             }}
             transition={{ 
-              duration: 0.6, 
-              ease: [0.76, 0, 0.24, 1] 
+              duration: 0.7, 
+              ease: [0.76, 0, 0.24, 1],
             }}
-            style={{ transformOrigin: 'center center' }}
             onAnimationComplete={onComplete}
           />
 
-          {/* Speed lines radiating from center */}
-          {[...Array(12)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute left-1/2 top-1/2 h-[2px] bg-gradient-to-r from-primary via-primary/50 to-transparent origin-left"
-              style={{
-                width: '150vw',
-                rotate: `${i * 30}deg`,
-                translateX: '-50%',
-                translateY: '-50%',
-              }}
-              initial={{ scaleX: 0, opacity: 0 }}
-              animate={{
-                scaleX: [0, 1, 1],
-                opacity: [0, 1, 0],
-              }}
-              transition={{
-                duration: 0.5,
-                delay: 0.05,
-                ease: [0.76, 0, 0.24, 1],
-              }}
-            />
-          ))}
+          {/* Radial speed lines - subtle warp streaks */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            {[...Array(24)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute h-[1px] origin-left"
+                style={{
+                  width: '60vw',
+                  left: '50%',
+                  background: `linear-gradient(90deg, transparent 0%, hsl(var(--primary) / 0.4) 50%, transparent 100%)`,
+                  rotate: `${i * 15}deg`,
+                }}
+                initial={{ scaleX: 0, opacity: 0 }}
+                animate={{
+                  scaleX: [0, 1.5],
+                  opacity: [0, 0.6, 0],
+                }}
+                transition={{
+                  duration: 0.5,
+                  delay: i * 0.01,
+                  ease: [0.76, 0, 0.24, 1],
+                }}
+              />
+            ))}
+          </div>
 
-          {/* Center expanding ring */}
+          {/* Center focal point - where you're "traveling to" */}
           <motion.div
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-primary"
-            initial={{ width: 0, height: 0, opacity: 1 }}
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/20"
+            initial={{ width: 4, height: 4, opacity: 1 }}
             animate={{
-              width: '200vw',
-              height: '200vw',
-              opacity: 0,
-            }}
-            transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
-          />
-
-          {/* Flying plane icon */}
-          <motion.div
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-            initial={{ scale: 1, opacity: 1 }}
-            animate={{
-              scale: 20,
-              opacity: 0,
-              rotate: 15,
+              width: [4, 20, 8],
+              height: [4, 20, 8],
+              opacity: [1, 1, 0],
             }}
             transition={{ 
               duration: 0.5, 
               ease: [0.76, 0, 0.24, 1],
             }}
-          >
-            <div className="relative">
-              <Plane size={48} className="text-primary" />
-              <motion.div
-                className="absolute inset-0 blur-xl"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: [0, 1, 0] }}
-                transition={{ duration: 0.4 }}
-              >
-                <Plane size={48} className="text-primary" />
-              </motion.div>
-            </div>
-          </motion.div>
+            style={{ filter: 'blur(2px)' }}
+          />
 
-          {/* Vignette effect */}
+          {/* Expanding rings - depth effect */}
+          {[0, 1, 2].map((i) => (
+            <motion.div
+              key={i}
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/20"
+              initial={{ width: 0, height: 0, opacity: 0.8 }}
+              animate={{
+                width: '300vw',
+                height: '300vw',
+                opacity: 0,
+              }}
+              transition={{ 
+                duration: 0.8, 
+                delay: i * 0.08,
+                ease: [0.76, 0, 0.24, 1],
+              }}
+            />
+          ))}
+
+          {/* Final blackout */}
           <motion.div
-            className="absolute inset-0"
-            style={{
-              background: 'radial-gradient(circle at center, transparent 0%, hsl(var(--background)) 70%)',
-            }}
+            className="absolute inset-0 bg-background"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.1 }}
+            transition={{ 
+              duration: 0.3, 
+              delay: 0.4,
+              ease: 'easeOut',
+            }}
           />
         </motion.div>
       )}
