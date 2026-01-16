@@ -244,13 +244,9 @@ export function HeroSection({ onScrollToContent }: HeroSectionProps) {
             variants={staggerItem}
             className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-mono font-bold tracking-tight mb-8 leading-[1]"
           >
-            <motion.span 
-              className="block mb-2"
-              animate={isHovering ? { x: [-2, 2, -2] } : {}}
-              transition={{ duration: 0.1, repeat: isHovering ? Infinity : 0 }}
-            >
+            <span className="block mb-2">
               Liveries that
-            </motion.span>
+            </span>
             <span className="block relative">
               <motion.span 
                 className="bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_auto] bg-clip-text text-transparent"
@@ -352,39 +348,6 @@ export function HeroSection({ onScrollToContent }: HeroSectionProps) {
         </motion.div>
       </motion.div>
 
-      {/* Enhanced bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-60 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none" />
-
-      {/* Ultra-enhanced scroll indicator */}
-      <motion.button
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 1.2 }}
-        onClick={handleScrollToContent}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 group"
-        aria-label="Scroll to content"
-      >
-        <motion.div 
-          className="relative flex flex-col items-center gap-2 p-4 rounded-2xl bg-white/[0.05] backdrop-blur-xl border border-white/[0.1] transition-all duration-300 group-hover:bg-white/[0.1] group-hover:border-white/[0.2] shadow-[0_8px_32px_rgba(0,0,0,0.2)]"
-          whileHover={{ y: -5 }}
-        >
-          <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-muted-foreground">
-            Scroll
-          </span>
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          >
-            <ChevronDown size={20} className="text-muted-foreground group-hover:text-foreground transition-colors" />
-          </motion.div>
-          {/* Pulsing ring */}
-          <motion.div
-            className="absolute inset-0 rounded-2xl border border-primary/30"
-            animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0, 0.5] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          />
-        </motion.div>
-      </motion.button>
     </section>
   );
 }
