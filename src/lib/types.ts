@@ -1,4 +1,14 @@
+/**
+ * Type Definitions
+ * Responsibility: Centralized TypeScript interfaces and types
+ * Used by: Components, pages, content files, and utilities
+ */
+
 import type { RichContentBlock } from '@/components/content/RichContent';
+
+// =============================================================================
+// PRODUCT TYPES
+// =============================================================================
 
 export interface Product {
   slug: string;
@@ -38,6 +48,10 @@ export interface SpecItem {
   value: string;
 }
 
+// =============================================================================
+// DISPATCH (BLOG) TYPES
+// =============================================================================
+
 export interface DispatchPost {
   slug: string;
   title: string;
@@ -50,8 +64,18 @@ export interface DispatchPost {
   relatedProducts?: string[];
 }
 
-/** Shared tag definitions for filtering/linking */
-export type ProductTag = 'a320' | 'a310' | '737' | 'crj' | 'vr' | 'utility' | 'livery' | 'pack' | 'update' | 'announcement' | 'roadmap' | 'philosophy';
+// =============================================================================
+// NAVIGATION TYPES
+// =============================================================================
+
+export interface NavItem {
+  label: string;
+  href: string;
+}
+
+// =============================================================================
+// PAGINATION TYPES
+// =============================================================================
 
 export interface PaginationState {
   currentPage: number;
@@ -60,7 +84,21 @@ export interface PaginationState {
   totalItems: number;
 }
 
-export interface NavItem {
-  label: string;
-  href: string;
-}
+// =============================================================================
+// TAG TYPES
+// =============================================================================
+
+/** Shared tag definitions for filtering/linking */
+export type ProductTag = 
+  | 'a320' 
+  | 'a310' 
+  | '737' 
+  | 'crj' 
+  | 'vr' 
+  | 'utility' 
+  | 'livery' 
+  | 'pack' 
+  | 'update' 
+  | 'announcement' 
+  | 'roadmap' 
+  | 'philosophy';

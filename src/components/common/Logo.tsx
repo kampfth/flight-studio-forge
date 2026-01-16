@@ -19,6 +19,8 @@ export function Logo({ showText = true, className, textClassName }: LogoProps) {
     <Link 
       to={ROUTES.HOME} 
       className={cn('flex items-center gap-3 group', className)}
+      data-qa="site-logo"
+      aria-label={`${BRAND_NAME} - Go to homepage`}
     >
       {/* Logo mark */}
       <div className="relative w-9 h-9 flex items-center justify-center">

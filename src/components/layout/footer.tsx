@@ -5,7 +5,7 @@
  */
 export function Footer() {
   return (
-    <footer className="py-8 border-t border-border/20">
+    <footer data-qa="site-footer" className="py-8 border-t border-border/20">
       <div className="section-container">
         <p className="text-center text-muted-foreground text-sm font-mono">
           © 2026 4Simmers Inc.

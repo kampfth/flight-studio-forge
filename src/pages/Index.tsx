@@ -1,11 +1,14 @@
-import { HeroSection } from '@/components/sections/hero-section';
+/**
+ * Page: Index
+ * Responsibility: Homepage with full-screen hero
+ * Route: /
+ */
+import { HeroSection } from '@/components/sections';
 
-const Index = () => {
+export default function Index() {
   return (
-    <div className="h-screen overflow-hidden">
+    <div className="h-screen overflow-hidden" data-qa="page-index">
       <HeroSection />
     </div>
   );
-};
-
-export default Index;
+}
