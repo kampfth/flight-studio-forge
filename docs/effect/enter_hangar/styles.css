@@ -1,0 +1,34 @@
+/**
+ * Variáveis CSS necessárias para o efeito funcionar
+ * 
+ * O componente usa variáveis CSS em formato HSL.
+ * Adicione estas variáveis no seu :root ou adapte os valores.
+ */
+
+:root {
+  /* Cor de fundo - usada no fade final e gradiente */
+  --background: 0 0% 3.9%;
+  
+  /* Cor primária - usada nas linhas de velocidade */
+  --primary: 0 0% 98%;
+}
+
+/* Alternativa: tema claro */
+.light {
+  --background: 0 0% 100%;
+  --primary: 0 0% 9%;
+}
+
+/* ================================================
+   CLASSES TAILWIND EQUIVALENTES
+   Se não usar Tailwind, aplique estes estilos:
+================================================ */
+
+/*
+.fixed { position: fixed; }
+.inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+.absolute { position: absolute; }
+.z-[100] { z-index: 100; }
+.pointer-events-none { pointer-events: none; }
+.bg-background { background-color: hsl(var(--background)); }
+*/
