@@ -112,25 +112,20 @@ export function ProductCard({ product, index }: ProductCardProps) {
               : 'bg-gradient-to-t from-card via-transparent to-transparent'
           )} />
           
-          {/* NEW ribbon */}
+          {/* NEW diagonal ribbon */}
           {isNew && (
-            <div className="absolute top-0 right-4 z-10">
-              <div className="relative bg-gradient-to-b from-primary to-primary/80 px-2 py-3 shadow-lg">
-                <span className="font-mono text-[9px] font-bold uppercase tracking-widest text-primary-foreground [writing-mode:vertical-rl] rotate-180">
+            <div className="absolute -right-8 top-4 z-10 rotate-45">
+              <div className="bg-gradient-to-r from-primary to-primary/90 px-8 py-1 shadow-lg shadow-primary/30">
+                <span className="font-mono text-[9px] font-bold uppercase tracking-widest text-primary-foreground">
                   New
                 </span>
-                {/* Ribbon tail */}
-                <div className="absolute -bottom-1.5 left-0 right-0 h-1.5 bg-gradient-to-b from-primary/80 to-transparent" 
-                  style={{ clipPath: 'polygon(0 0, 50% 100%, 100% 0)' }} 
-                />
               </div>
             </div>
           )}
 
           {/* Arrow indicator */}
           <div className={cn(
-            'absolute top-3 flex h-8 w-8 scale-90 items-center justify-center rounded-full opacity-0 backdrop-blur transition-all duration-200 group-hover:scale-100 group-hover:opacity-100',
-            isNew ? 'right-14' : 'right-3',
+            'absolute top-3 right-3 flex h-8 w-8 scale-90 items-center justify-center rounded-full opacity-0 backdrop-blur transition-all duration-200 group-hover:scale-100 group-hover:opacity-100',
             isBundle ? 'bg-purple-500/80' : 'bg-background/80'
           )}>
             <ArrowUpRight size={14} className="text-foreground" />
