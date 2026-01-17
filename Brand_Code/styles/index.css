@@ -1,0 +1,273 @@
+/**
+ * Global Styles - Brand Page
+ * 
+ * @description CSS global com variáveis, classes utilitárias e efeitos visuais
+ * @theme Dark mode (Black & White) com accent Electric Blue
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =============================================================================
+   FONT IMPORTS
+   ============================================================================= */
+
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+@import '@fontsource/ibm-plex-mono/600.css';
+@import '@fontsource/ibm-plex-mono/700.css';
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+
+/* =============================================================================
+   CSS VARIABLES - Design Tokens
+   
+   IMPORTANTE: Todas as cores usam formato HSL sem a função hsl()
+   Exemplo: --primary: 220 100% 73%;
+   Uso: hsl(var(--primary)) ou hsl(var(--primary) / 0.5) para opacidade
+   ============================================================================= */
+
+@layer base {
+  :root {
+    /* ---------- BACKGROUND & TEXT ---------- */
+    /* Background quase preto puro */
+    --background: 0 0% 2%;        /* #050505 */
+    --foreground: 0 0% 96%;       /* #F5F5F5 */
+
+    /* ---------- CARDS & SURFACES ---------- */
+    --card: 0 0% 5%;              /* #0D0D0D */
+    --card-foreground: 0 0% 96%;
+
+    --popover: 0 0% 5%;
+    --popover-foreground: 0 0% 96%;
+
+    /* ---------- PRIMARY - Electric Blue ---------- */
+    /* Cor de destaque principal - usar com moderação */
+    --primary: 220 100% 73%;      /* #7AA7FF */
+    --primary-foreground: 0 0% 2%;
+
+    /* ---------- SECONDARY ---------- */
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 96%;
+
+    /* ---------- MUTED (texto secundário) ---------- */
+    --muted: 0 0% 14%;
+    --muted-foreground: 0 0% 55%;
+
+    /* ---------- ACCENT ---------- */
+    /* Mesmo que primary neste tema */
+    --accent: 220 100% 73%;
+    --accent-foreground: 0 0% 2%;
+
+    /* ---------- DESTRUCTIVE ---------- */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    /* ---------- BORDERS & INPUTS ---------- */
+    --border: 0 0% 14%;
+    --input: 0 0% 14%;
+    --ring: 220 100% 73%;
+
+    /* ---------- RADIUS ---------- */
+    --radius: 0.375rem;
+
+    /* ---------- CUSTOM TOKENS ---------- */
+    --glow: 220 100% 73%;
+    --surface-elevated: 0 0% 7%;
+    --surface-hover: 0 0% 10%;
+    
+    /* Bundle purple accent (para produtos bundle) */
+    --bundle: 270 80% 65%;
+    --bundle-glow: 270 90% 70%;
+    
+    /* ---------- GRADIENTS ---------- */
+    --gradient-subtle: linear-gradient(135deg, hsl(220 100% 73% / 0.03) 0%, transparent 50%);
+    --gradient-hero: linear-gradient(180deg, hsl(0 0% 2%) 0%, hsl(0 0% 4%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 6%) 0%, hsl(0 0% 4%) 100%);
+    
+    /* ---------- SHADOWS ---------- */
+    --shadow-glow: 0 0 30px hsl(220 100% 73% / 0.08);
+    --shadow-glow-sm: 0 0 15px hsl(220 100% 73% / 0.06);
+    --shadow-card: 0 4px 20px hsl(0 0% 0% / 0.5);
+  }
+}
+
+/* =============================================================================
+   BASE STYLES
+   ============================================================================= */
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  /* Seleção de texto com cor primária */
+  ::selection {
+    background: hsl(var(--primary) / 0.2);
+  }
+}
+
+/* =============================================================================
+   COMPONENT CLASSES
+   ============================================================================= */
+
+@layer components {
+  
+  /* ---------- TYPOGRAPHY UTILITIES ---------- */
+  
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70;
+  }
+
+  .text-accent-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70;
+  }
+
+  /* ---------- GLOW EFFECTS ---------- */
+  
+  .glow-border {
+    box-shadow: 0 0 15px hsl(var(--primary) / 0.1), inset 0 0 15px hsl(var(--primary) / 0.02);
+  }
+
+  .bundle-glow {
+    box-shadow: 
+      0 0 20px hsl(var(--bundle) / 0.3),
+      0 0 40px hsl(var(--bundle) / 0.15),
+      inset 0 0 20px hsl(var(--bundle) / 0.05);
+  }
+
+  .bundle-border {
+    border-color: hsl(var(--bundle) / 0.5);
+  }
+
+  .bundle-badge {
+    background: linear-gradient(135deg, hsl(var(--bundle)) 0%, hsl(var(--bundle-glow)) 100%);
+    color: white;
+  }
+
+  /* ---------- GLASSMORPHISM ---------- */
+  
+  /**
+   * Glass Effect
+   * @description Header/navbar com blur
+   */
+  .glass {
+    @apply bg-background/90 backdrop-blur-xl border-b border-border/40;
+  }
+
+  /**
+   * Glass Card
+   * @description Cards com transparência e blur leve
+   */
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-sm border border-border/50;
+  }
+
+  /* ---------- LAYOUT UTILITIES ---------- */
+  
+  /**
+   * Section Container
+   * @description Container padrão para seções
+   * max-width: 72rem (1152px) com padding lateral
+   */
+  .section-container {
+    @apply max-w-6xl mx-auto px-5 lg:px-8;
+  }
+
+  /* Semantic spacing tokens */
+  .py-section-sm {
+    @apply py-12 md:py-16;
+  }
+
+  .py-section-md {
+    @apply py-16 md:py-24;
+  }
+
+  .py-section-lg {
+    @apply py-24 md:py-32;
+  }
+
+  /* ---------- FONT UTILITY ---------- */
+  
+  .mono {
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* ---------- LINK UTILITIES ---------- */
+  
+  .link-underline {
+    @apply relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full;
+  }
+
+  /* ---------- OVERLAY EFFECTS ---------- */
+  
+  /**
+   * Grid Overlay
+   * @description Grade sutil para textura de fundo
+   * Uso: <div className="grid-overlay opacity-30" />
+   */
+  .grid-overlay {
+    background-image: 
+      linear-gradient(hsl(var(--foreground) / 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--foreground) / 0.02) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+
+  /**
+   * Scanlines
+   * @description Linhas horizontais estilo CRT
+   * Uso: <div className="scanlines opacity-20" />
+   */
+  .scanlines::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      hsl(0 0% 0% / 0.03) 2px,
+      hsl(0 0% 0% / 0.03) 4px
+    );
+    pointer-events: none;
+  }
+
+  /* ---------- CUSTOM SCROLLBAR ---------- */
+  
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted));
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground));
+  }
+}
+
+/* =============================================================================
+   UTILITIES
+   ============================================================================= */
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
