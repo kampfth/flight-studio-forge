@@ -24,9 +24,19 @@ const categoryLabels = {
   bundle: 'Bundle',
 };
 
+// Check if product is new (released within last 30 days)
+const isNewProduct = (releaseDate: string): boolean => {
+  const release = new Date(releaseDate);
+  const now = new Date();
+  const diffTime = now.getTime() - release.getTime();
+  const diffDays = diffTime / (1000 * 60 * 60 * 24);
+  return diffDays <= 30;
+};
+
 export function ProductCard({ product, index }: ProductCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const isBundle = product.category === 'bundle';
+  const isNew = product.releaseDate ? isNewProduct(product.releaseDate) : false;
   
   // Mouse position for tilt effect
   const mouseX = useMotionValue(0.5);
@@ -102,9 +112,25 @@ export function ProductCard({ product, index }: ProductCardProps) {
               : 'bg-gradient-to-t from-card via-transparent to-transparent'
           )} />
           
+          {/* NEW ribbon */}
+          {isNew && (
+            <div className="absolute top-0 right-4 z-10">
+              <div className="relative bg-gradient-to-b from-primary to-primary/80 px-2 py-3 shadow-lg">
+                <span className="font-mono text-[9px] font-bold uppercase tracking-widest text-primary-foreground [writing-mode:vertical-rl] rotate-180">
+                  New
+                </span>
+                {/* Ribbon tail */}
+                <div className="absolute -bottom-1.5 left-0 right-0 h-1.5 bg-gradient-to-b from-primary/80 to-transparent" 
+                  style={{ clipPath: 'polygon(0 0, 50% 100%, 100% 0)' }} 
+                />
+              </div>
+            </div>
+          )}
+
           {/* Arrow indicator */}
           <div className={cn(
-            'absolute top-3 right-3 flex h-8 w-8 scale-90 items-center justify-center rounded-full opacity-0 backdrop-blur transition-all duration-200 group-hover:scale-100 group-hover:opacity-100',
+            'absolute top-3 flex h-8 w-8 scale-90 items-center justify-center rounded-full opacity-0 backdrop-blur transition-all duration-200 group-hover:scale-100 group-hover:opacity-100',
+            isNew ? 'right-14' : 'right-3',
             isBundle ? 'bg-purple-500/80' : 'bg-background/80'
           )}>
             <ArrowUpRight size={14} className="text-foreground" />
