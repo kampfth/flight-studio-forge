@@ -699,9 +699,141 @@ export const products: Product[] = [
     name: 'A320 Regions Liveries Bundle',
     tagline: 'Complete regional coverage. One package.',
     category: 'bundle',
-    heroImage: '/placeholders/product-03.jpg',
+    heroImage: '/placeholders/hero-01.jpg',
     trailerUrl: '#',
     description: 'The ultimate A320 livery collection combining our most popular regional packs into one comprehensive bundle. From European carriers to Asian airlines, get complete coverage at a fraction of the cost.',
+    richDescription: [
+      {
+        type: 'paragraph',
+        content: 'The <strong>A320 Regions Liveries Bundle</strong> is our most comprehensive livery collection, bringing together four of our best-selling packs into a single, value-packed offering. Whether you\'re operating short-haul European routes or long-range Asian destinations, this bundle has you covered.',
+      },
+      {
+        type: 'heading',
+        level: 2,
+        content: 'What\'s Inside the Bundle',
+        id: 'whats-inside',
+      },
+      {
+        type: 'paragraph',
+        content: 'This bundle combines <em>48+ unique liveries</em> from four distinct packs, each designed with the same attention to detail and performance optimization. From the understated elegance of Neo Minimal to the stealth aesthetics of Night Ops, variety is the name of the game.',
+      },
+      {
+        type: 'feature-grid',
+        items: [
+          { title: 'Neo Minimal Pack', description: '12 minimalist liveries featuring clean lines and subtle metallic accents for the modern aviator.' },
+          { title: 'Night Ops Collection', description: 'Blacked-out matte finishes perfect for those who prefer their aircraft understated.' },
+          { title: 'Retroline Series', description: 'Vintage-inspired designs paying homage to the golden age of aviation.' },
+          { title: 'Regional Express', description: 'Authentic regional carrier liveries from smaller European and Asian airlines.' },
+        ],
+      },
+      {
+        type: 'image',
+        src: '/placeholders/gallery-05.jpg',
+        alt: 'Bundle liveries preview showing multiple aircraft',
+        caption: 'A selection of liveries from the bundle displayed at various airports',
+        fullWidth: true,
+      },
+      {
+        type: 'callout',
+        variant: 'info',
+        title: 'Bundle Savings',
+        content: 'Purchasing this bundle saves you <strong>40% compared to buying each pack individually</strong>. Plus, all future updates to any included pack are automatically included at no extra cost.',
+      },
+      {
+        type: 'heading',
+        level: 2,
+        content: 'Why Choose the Bundle?',
+        id: 'why-bundle',
+      },
+      {
+        type: 'list',
+        ordered: false,
+        items: [
+          '<strong>Massive Variety</strong> — Over 48 unique liveries covering airlines from around the globe',
+          '<strong>Consistent Quality</strong> — All packs share the same 4K PBR texture quality and optimization',
+          '<strong>Single Installation</strong> — One download, one Community folder drop, done',
+          '<strong>Future-Proof</strong> — Lifetime updates for all included products',
+          '<strong>Cross-Compatible</strong> — Works with MSFS 2020, MSFS 2024, and FlyByWire A32NX',
+        ],
+      },
+      {
+        type: 'image',
+        src: '/placeholders/gallery-08.jpg',
+        alt: 'Night operations with bundle liveries',
+        caption: 'Night Ops liveries in action during evening departure',
+      },
+      {
+        type: 'heading',
+        level: 3,
+        content: 'Technical Specifications',
+        id: 'tech-specs',
+      },
+      {
+        type: 'comparison-table',
+        headers: ['Specification', 'Value', 'Notes'],
+        rows: [
+          ['Total Liveries', '48+', 'Across 4 packs'],
+          ['Texture Resolution', '4096 x 4096', 'DDS BC7 compressed'],
+          ['Total File Size', '~1.8 GB', 'After compression'],
+          ['Performance Impact', 'Minimal', '<2 FPS on average hardware'],
+          ['Night Textures', 'Full', 'Custom emissive for all liveries'],
+        ],
+      },
+      {
+        type: 'divider',
+        style: 'gradient',
+      },
+      {
+        type: 'heading',
+        level: 2,
+        content: 'Installation',
+        id: 'installation',
+      },
+      {
+        type: 'paragraph',
+        content: 'Installing the bundle is straightforward. All four packs are combined into a single installer for convenience.',
+      },
+      {
+        type: 'list',
+        ordered: true,
+        items: [
+          'Download the bundle from your account dashboard',
+          'Run the installer or extract the ZIP file',
+          'Select which packs to install (or install all)',
+          'Point to your Community folder',
+          'Launch MSFS and enjoy your new liveries',
+        ],
+      },
+      {
+        type: 'callout',
+        variant: 'tip',
+        title: 'Pro Tip',
+        content: 'Use the included <strong>Livery Manager</strong> utility to quickly enable/disable specific liveries based on your current flight plan or preferences.',
+      },
+      {
+        type: 'image',
+        src: '/placeholders/gallery-11.jpg',
+        alt: 'Retroline series liveries',
+        caption: 'Retroline Series brings vintage charm to modern cockpits',
+        fullWidth: true,
+      },
+      {
+        type: 'blockquote',
+        content: 'This bundle is the best value in the flight sim livery market. The quality is consistent across all packs, and the variety means I never fly the same livery twice.',
+        author: 'FlightSimmer2024',
+        source: 'Reddit r/flightsim',
+      },
+      {
+        type: 'heading',
+        level: 2,
+        content: 'Included Products Preview',
+        id: 'products-preview',
+      },
+      {
+        type: 'paragraph',
+        content: 'Below you\'ll find quick access to each product included in this bundle. Each product page contains detailed galleries, installation guides, and full feature lists.',
+      },
+    ],
     features: [
       {
         icon: 'Globe',
@@ -723,19 +855,37 @@ export const products: Product[] = [
         title: 'Auto Updates',
         description: 'All included products receive free lifetime updates.',
       },
+      {
+        icon: 'Download',
+        title: 'Single Install',
+        description: 'One installer, one download. No hassle.',
+      },
+      {
+        icon: 'Layers',
+        title: '48+ Liveries',
+        description: 'Massive variety covering multiple regions.',
+      },
     ],
     faq: [
       {
         question: 'Which products are included?',
-        answer: 'This bundle includes Neo Minimal, Night Ops, Retroline Series, and Regional Express Pack.',
+        answer: 'This bundle includes Neo Minimal, Night Ops, Retroline Series, and Regional Express Pack — a total of 48+ unique liveries.',
       },
       {
         question: 'Do I get updates for all products?',
-        answer: 'Yes! All included products receive free lifetime updates as they are released.',
+        answer: 'Yes! All included products receive free lifetime updates as they are released. When we add new liveries to any pack, you get them automatically.',
       },
       {
         question: 'Can I buy the bundle if I already own one product?',
-        answer: 'Contact us on Discord with proof of purchase for a custom discount code.',
+        answer: 'Contact us on Discord with proof of purchase for a custom discount code. We\'ll subtract what you\'ve already paid from the bundle price.',
+      },
+      {
+        question: 'Is the installation separate for each pack?',
+        answer: 'No, the bundle comes with a unified installer. You can choose to install all packs at once or select specific ones.',
+      },
+      {
+        question: 'Which simulator versions are supported?',
+        answer: 'The bundle works with MSFS 2020, MSFS 2024, and requires the FlyByWire A32NX aircraft (stable or development version).',
       },
     ],
     gallery: [
@@ -743,11 +893,16 @@ export const products: Product[] = [
       '/placeholders/gallery-02.jpg',
       '/placeholders/gallery-03.jpg',
       '/placeholders/gallery-04.jpg',
+      '/placeholders/gallery-06.jpg',
+      '/placeholders/gallery-07.jpg',
+      '/placeholders/gallery-09.jpg',
+      '/placeholders/gallery-10.jpg',
     ],
     compatibility: [
       'FlyByWire A32NX (stable & dev)',
       'MSFS 2020 / MSFS 2024',
       'All weather presets',
+      'VR Compatible',
     ],
     releaseDate: '2025-01-15',
     marketplaceUrl: '#',

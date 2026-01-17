@@ -28,22 +28,13 @@ export function BundleProducts({ products, bundleName }: BundleProductsProps) {
 
   return (
     <section className="relative py-16 md:py-24 overflow-hidden">
-      {/* Background glow - purple for bundles */}
+      {/* Subtle background glow - toned down purple */}
       <div className="absolute inset-0 pointer-events-none">
-        <motion.div 
-          className="absolute top-1/2 left-1/2 w-[800px] h-[400px] -translate-x-1/2 -translate-y-1/2"
+        <div 
+          className="absolute top-1/2 left-1/2 w-[600px] h-[300px] -translate-x-1/2 -translate-y-1/2 opacity-30"
           style={{
-            background: 'radial-gradient(ellipse, hsl(270 80% 65% / 0.08) 0%, transparent 60%)',
-            filter: 'blur(60px)',
-          }}
-          animate={{
-            scale: [1, 1.1, 1],
-            opacity: [0.5, 0.8, 0.5],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: 'easeInOut',
+            background: 'radial-gradient(ellipse, hsl(270 60% 50% / 0.06) 0%, transparent 70%)',
+            filter: 'blur(80px)',
           }}
         />
       </div>
@@ -57,15 +48,12 @@ export function BundleProducts({ products, bundleName }: BundleProductsProps) {
           viewport={{ once: true }}
           className="mb-10"
         >
-          <motion.div 
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 backdrop-blur-md border border-purple-500/20 mb-4"
-            whileHover={{ scale: 1.02 }}
-          >
-            <Package size={14} className="text-purple-400" />
-            <span className="font-mono text-purple-300 text-xs tracking-[0.15em] uppercase">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/5 backdrop-blur-md border border-purple-500/10 mb-4">
+            <Package size={14} className="text-purple-400/70" />
+            <span className="font-mono text-purple-300/80 text-xs tracking-[0.15em] uppercase">
               Included Products
             </span>
-          </motion.div>
+          </div>
           
           <h2 className="text-2xl md:text-3xl font-mono font-bold mb-3">
             Products in this{' '}
@@ -155,12 +143,12 @@ export function BundleProducts({ products, bundleName }: BundleProductsProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
-          className="mt-8 p-6 rounded-xl bg-gradient-to-r from-purple-500/10 to-transparent border border-purple-500/20 backdrop-blur-md"
+          className="mt-8 p-6 rounded-xl bg-gradient-to-r from-purple-500/5 to-transparent border border-purple-500/10 backdrop-blur-md"
         >
           <div className="flex flex-wrap gap-6 md:gap-12 justify-center">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center">
-                <Check size={18} className="text-purple-400" />
+              <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center">
+                <Check size={18} className="text-purple-400/80" />
               </div>
               <div>
                 <p className="text-sm font-mono font-medium">Lifetime Updates</p>
@@ -168,8 +156,8 @@ export function BundleProducts({ products, bundleName }: BundleProductsProps) {
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center">
-                <Package size={18} className="text-purple-400" />
+              <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center">
+                <Package size={18} className="text-purple-400/80" />
               </div>
               <div>
                 <p className="text-sm font-mono font-medium">Single Download</p>
@@ -177,8 +165,8 @@ export function BundleProducts({ products, bundleName }: BundleProductsProps) {
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center">
-                <span className="text-purple-400 font-mono font-bold text-sm">%</span>
+              <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center">
+                <span className="text-purple-400/80 font-mono font-bold text-sm">%</span>
               </div>
               <div>
                 <p className="text-sm font-mono font-medium">Bundle Savings</p>
