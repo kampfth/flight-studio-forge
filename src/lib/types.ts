@@ -10,11 +10,14 @@ import type { RichContentBlock } from '@/components/content/RichContent';
 // PRODUCT TYPES
 // =============================================================================
 
+/** Product category types */
+export type ProductCategory = 'livery' | 'utility' | 'pack' | 'bundle';
+
 export interface Product {
   slug: string;
   name: string;
   tagline: string;
-  category: 'livery' | 'utility' | 'pack';
+  category: ProductCategory;
   heroImage: string;
   heroVideo?: string;
   description: string;
@@ -26,10 +29,13 @@ export interface Product {
   specs?: SpecItem[];
   compatibility?: string[];
   releaseDate?: string;
+  /** Version number - NOT used for bundles */
   version?: string;
   marketplaceUrl?: string;
   discordUrl?: string;
   trailerUrl?: string;
+  /** Product slugs included in this bundle (only for category: 'bundle') */
+  includedProducts?: string[];
 }
 
 export interface FeatureItem {
