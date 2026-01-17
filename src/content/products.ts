@@ -693,6 +693,73 @@ export const products: Product[] = [
     marketplaceUrl: '#',
     discordUrl: '#',
   },
+  // ============= BUNDLE EXAMPLE =============
+  {
+    slug: 'a320-regions-liveries-bundle',
+    name: 'A320 Regions Liveries Bundle',
+    tagline: 'Complete regional coverage. One package.',
+    category: 'bundle',
+    heroImage: '/placeholders/product-03.jpg',
+    trailerUrl: '#',
+    description: 'The ultimate A320 livery collection combining our most popular regional packs into one comprehensive bundle. From European carriers to Asian airlines, get complete coverage at a fraction of the cost.',
+    features: [
+      {
+        icon: 'Globe',
+        title: 'Global Coverage',
+        description: 'Airlines from Europe, Asia, Americas, and Middle East.',
+      },
+      {
+        icon: 'Package',
+        title: '4 Packs Included',
+        description: 'Neo Minimal, Night Ops, Retroline, and Regional Express.',
+      },
+      {
+        icon: 'Percent',
+        title: '40% Savings',
+        description: 'Massive discount compared to buying individually.',
+      },
+      {
+        icon: 'RefreshCcw',
+        title: 'Auto Updates',
+        description: 'All included products receive free lifetime updates.',
+      },
+    ],
+    faq: [
+      {
+        question: 'Which products are included?',
+        answer: 'This bundle includes Neo Minimal, Night Ops, Retroline Series, and Regional Express Pack.',
+      },
+      {
+        question: 'Do I get updates for all products?',
+        answer: 'Yes! All included products receive free lifetime updates as they are released.',
+      },
+      {
+        question: 'Can I buy the bundle if I already own one product?',
+        answer: 'Contact us on Discord with proof of purchase for a custom discount code.',
+      },
+    ],
+    gallery: [
+      '/placeholders/gallery-01.jpg',
+      '/placeholders/gallery-02.jpg',
+      '/placeholders/gallery-03.jpg',
+      '/placeholders/gallery-04.jpg',
+    ],
+    compatibility: [
+      'FlyByWire A32NX (stable & dev)',
+      'MSFS 2020 / MSFS 2024',
+      'All weather presets',
+    ],
+    releaseDate: '2025-01-15',
+    marketplaceUrl: '#',
+    discordUrl: '#',
+    // Products included in this bundle
+    includedProducts: [
+      'livery-pack-neo-minimal',
+      'fleet-livery-night-ops',
+      'livery-series-retroline',
+      'livery-regional-express',
+    ],
+  },
 ];
 
 export const getProductBySlug = (slug: string): Product | undefined => {
@@ -712,4 +779,20 @@ export const getRelatedProducts = (currentSlug: string, limit: number = 3): Prod
   const others = products.filter(p => p.category !== current.category && p.slug !== currentSlug);
   
   return [...sameCategory, ...others].slice(0, limit);
+};
+
+/**
+ * Get products included in a bundle
+ * @param bundleSlug - The slug of the bundle product
+ * @returns Array of products included in the bundle
+ */
+export const getBundleProducts = (bundleSlug: string): Product[] => {
+  const bundle = getProductBySlug(bundleSlug);
+  if (!bundle || bundle.category !== 'bundle' || !bundle.includedProducts) {
+    return [];
+  }
+  
+  return bundle.includedProducts
+    .map(slug => getProductBySlug(slug))
+    .filter((p): p is Product => p !== undefined);
 };

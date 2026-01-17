@@ -7,7 +7,7 @@
 // ============= Product =============
 
 export type ProductStatus = 'draft' | 'published' | 'archived';
-export type ProductCategory = 'livery' | 'utility' | 'pack';
+export type ProductCategory = 'livery' | 'utility' | 'pack' | 'bundle';
 
 export interface CMSFeature {
   id: string;
