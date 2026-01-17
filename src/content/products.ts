@@ -308,7 +308,7 @@ export const products: Product[] = [
       'MSFS 2020 / MSFS 2024',
       'All weather presets',
     ],
-    releaseDate: '2024-11-15',
+    releaseDate: '2026-01-05',
     version: '1.2.0',
     marketplaceUrl: '#',
     discordUrl: '#',
@@ -904,7 +904,7 @@ export const products: Product[] = [
       'All weather presets',
       'VR Compatible',
     ],
-    releaseDate: '2025-01-15',
+    releaseDate: '2026-01-10',
     marketplaceUrl: '#',
     discordUrl: '#',
     // Products included in this bundle
