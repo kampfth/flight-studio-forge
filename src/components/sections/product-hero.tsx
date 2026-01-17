@@ -5,6 +5,7 @@
  */
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import { Product } from '@/lib/types';
 import { useRef } from 'react';
 
@@ -76,20 +77,20 @@ export function ProductHero({ product }: ProductHeroProps) {
         style={{ opacity, y }}
       >
         <div className="max-w-3xl">
-          {/* Breadcrumb with glassmorphism */}
+          {/* Back to Hangar link */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="mb-6"
           >
-            <div className="inline-flex items-center gap-2 text-sm text-muted-foreground px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10">
-              <Link to="/products" className="hover:text-foreground transition-colors">
-                Hangar
-              </Link>
-              <span className="text-white/20">/</span>
-              <span className="text-primary capitalize">{product.category}</span>
-            </div>
+            <Link 
+              to="/products" 
+              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors group"
+            >
+              <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+              <span>Back to Hangar</span>
+            </Link>
           </motion.div>
 
           {/* Title */}
