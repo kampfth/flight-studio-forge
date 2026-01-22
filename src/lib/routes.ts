@@ -11,6 +11,7 @@ export const ROUTES = {
   DISPATCH_POST: '/dispatch/:slug',
   BRAND: '/brand',
   CONTACT: '/contact',
+  WIKI: '/wiki',
 } as const;
 
 /**
@@ -46,5 +47,9 @@ export const ROUTE_META: Record<string, { title: string; description: string }> 
   [ROUTES.CONTACT]: {
     title: 'Contact — 4Simmers',
     description: 'Get in touch with 4Simmers for support or inquiries.',
+  },
+  [ROUTES.WIKI]: {
+    title: 'Wiki — 4Simmers',
+    description: 'Knowledge base with guides, tutorials, and documentation for 4Simmers products.',
   },
 };

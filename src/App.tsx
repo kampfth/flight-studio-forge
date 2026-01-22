@@ -18,6 +18,7 @@ import Brand from '@/pages/Brand';
 import Dispatch from '@/pages/Dispatch';
 import DispatchPost from '@/pages/DispatchPost';
 import Contact from '@/pages/Contact';
+import Wiki from '@/pages/Wiki';
 import NotFound from '@/pages/NotFound';
 
 // CMS Pages
@@ -46,6 +47,7 @@ const App = () => (
           <Route path={ROUTES.DISPATCH} element={<Dispatch />} />
           <Route path={ROUTES.DISPATCH_POST} element={<DispatchPost />} />
           <Route path={ROUTES.CONTACT} element={<Contact />} />
+          <Route path={ROUTES.WIKI} element={<Wiki />} />
           
           {/* CMS Routes */}
           <Route path={CMS_ROUTES.DASHBOARD} element={<CMSDashboard />} />
