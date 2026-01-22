@@ -693,6 +693,131 @@ export const products: Product[] = [
     marketplaceUrl: '#',
     discordUrl: '#',
   },
+  // Bundle product example
+  {
+    slug: 'a320-regions-liveries-bundle',
+    name: 'A320 Regions Liveries Bundle',
+    tagline: 'Complete regional coverage. One price.',
+    category: 'bundle',
+    heroImage: '/placeholders/product-03.jpg',
+    trailerUrl: '#',
+    description: 'The ultimate A320 livery collection. This bundle combines our most popular regional packs into one comprehensive package. Get all current liveries plus free access to future additions. Perfect for virtual airline pilots who want complete fleet coverage without buying each pack separately.',
+    richDescription: [
+      {
+        type: 'paragraph',
+        content: 'Why buy individual packs when you can have <strong>everything</strong>? The A320 Regions Bundle brings together our most popular livery collections, giving you access to over <em>50 unique liveries</em> from airlines around the world.',
+      },
+      {
+        type: 'heading',
+        level: 2,
+        content: 'What\'s Inside',
+        id: 'whats-inside',
+      },
+      {
+        type: 'feature-grid',
+        items: [
+          { title: 'Neo Minimal Pack', description: '12 minimalist designs with clean, modern aesthetics' },
+          { title: 'Regional Express', description: '24 regional airline liveries from 3 continents' },
+          { title: 'Night Ops Series', description: 'Blacked-out stealth liveries for night operations' },
+          { title: 'Retroline Collection', description: '15 historical recreations from aviation\'s golden age' },
+        ],
+      },
+      {
+        type: 'callout',
+        variant: 'success',
+        title: 'Bundle Savings',
+        content: 'Save over <strong>40%</strong> compared to purchasing each pack individually. Plus, get automatic updates and future livery additions at no extra cost.',
+      },
+      {
+        type: 'heading',
+        level: 2,
+        content: 'Perfect For',
+        id: 'perfect-for',
+      },
+      {
+        type: 'list',
+        ordered: false,
+        items: [
+          '<strong>Virtual Airline Pilots</strong> — Complete fleet coverage for professional operations',
+          '<strong>Content Creators</strong> — Variety for screenshots and videos',
+          '<strong>Collectors</strong> — Get everything in one purchase',
+          '<strong>Flight Schools</strong> — Multi-user licenses available',
+        ],
+      },
+      {
+        type: 'image',
+        src: '/placeholders/gallery-03.jpg',
+        alt: 'Multiple A320 liveries on the ramp',
+        caption: 'Just a sample of the 50+ liveries included in this bundle',
+        fullWidth: true,
+      },
+      {
+        type: 'callout',
+        variant: 'info',
+        title: 'Compatibility',
+        content: 'All liveries in this bundle are designed for the <strong>FlyByWire A32NX</strong> and are compatible with both MSFS 2020 and MSFS 2024.',
+      },
+    ],
+    features: [
+      {
+        icon: 'Layers',
+        title: '50+ Liveries',
+        description: 'Comprehensive coverage from 4 premium packs.',
+      },
+      {
+        icon: 'Percent',
+        title: '40% Savings',
+        description: 'Better value than buying packs individually.',
+      },
+      {
+        icon: 'RefreshCw',
+        title: 'Future Updates',
+        description: 'All future additions included at no extra cost.',
+      },
+      {
+        icon: 'Sparkles',
+        title: '4K Quality',
+        description: 'Every livery features premium PBR textures.',
+      },
+    ],
+    faq: [
+      {
+        question: 'Do I get access to all future liveries?',
+        answer: 'Yes! Any livery added to the included packs will automatically be available to bundle owners.',
+      },
+      {
+        question: 'Can I upgrade from individual packs?',
+        answer: 'Yes, we offer upgrade pricing. Contact us with your existing purchase receipts.',
+      },
+      {
+        question: 'What if I only want some liveries?',
+        answer: 'Each pack is available separately. The bundle is best value for those wanting complete coverage.',
+      },
+    ],
+    gallery: [
+      '/placeholders/gallery-01.jpg',
+      '/placeholders/gallery-02.jpg',
+      '/placeholders/gallery-03.jpg',
+      '/placeholders/gallery-04.jpg',
+      '/placeholders/gallery-05.jpg',
+      '/placeholders/gallery-06.jpg',
+    ],
+    compatibility: [
+      'FlyByWire A32NX (stable & dev)',
+      'MSFS 2020 / MSFS 2024',
+      'All weather presets',
+    ],
+    releaseDate: '2024-12-15',
+    marketplaceUrl: '#',
+    discordUrl: '#',
+    // Bundle-specific: link to included products
+    bundleProducts: [
+      'livery-pack-neo-minimal',
+      'fleet-livery-night-ops',
+      'livery-series-retroline',
+      'livery-regional-express',
+    ],
+  },
 ];
 
 export const getProductBySlug = (slug: string): Product | undefined => {
@@ -701,6 +826,16 @@ export const getProductBySlug = (slug: string): Product | undefined => {
 
 export const getProductsByCategory = (category: Product['category']): Product[] => {
   return products.filter((p) => p.category === category);
+};
+
+/**
+ * Get multiple products by their slugs
+ * Used for bundle products lookup
+ */
+export const getProductsBySlugs = (slugs: string[]): Product[] => {
+  return slugs
+    .map(slug => products.find(p => p.slug === slug))
+    .filter((p): p is Product => p !== undefined);
 };
 
 export const getRelatedProducts = (currentSlug: string, limit: number = 3): Product[] => {

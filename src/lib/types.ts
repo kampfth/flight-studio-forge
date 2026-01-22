@@ -10,11 +10,15 @@ import type { RichContentBlock } from '@/components/content/RichContent';
 // PRODUCT TYPES
 // =============================================================================
 
+/** Product category types */
+export type ProductCategory = 'livery' | 'utility' | 'pack' | 'bundle';
+
+/** Base product interface */
 export interface Product {
   slug: string;
   name: string;
   tagline: string;
-  category: 'livery' | 'utility' | 'pack';
+  category: ProductCategory;
   heroImage: string;
   heroVideo?: string;
   description: string;
@@ -26,10 +30,13 @@ export interface Product {
   specs?: SpecItem[];
   compatibility?: string[];
   releaseDate?: string;
+  /** Version - not applicable for bundles */
   version?: string;
   marketplaceUrl?: string;
   discordUrl?: string;
   trailerUrl?: string;
+  /** Product slugs included in bundle (only for category: 'bundle') */
+  bundleProducts?: string[];
 }
 
 export interface FeatureItem {
@@ -97,7 +104,8 @@ export type ProductTag =
   | 'vr' 
   | 'utility' 
   | 'livery' 
-  | 'pack' 
+  | 'pack'
+  | 'bundle' 
   | 'update' 
   | 'announcement' 
   | 'roadmap' 

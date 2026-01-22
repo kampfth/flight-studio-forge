@@ -12,7 +12,8 @@ import { ProductFeatures } from '@/components/sections/product-features';
 import { ProductFaq } from '@/components/sections/product-faq';
 import { ProductGallery } from '@/components/sections/product-gallery';
 import { ProductSpecs } from '@/components/sections/product-specs';
-import { getProductBySlug, getRelatedProducts } from '@/content/products';
+import { BundleProducts } from '@/components/sections/bundle-products';
+import { getProductBySlug, getRelatedProducts, getProductsBySlugs } from '@/content/products';
 import { getDispatchesByProduct } from '@/content/dispatch';
 import { ProductCard } from '@/components/products/product-card';
 import { PLACEHOLDERS } from '@/lib/constants';
@@ -26,8 +27,16 @@ const ProductDetail = () => {
     return <Navigate to="/products" replace />;
   }
 
-  // Get related dispatch posts
-  const relatedDispatches = getDispatchesByProduct(product.slug);
+  // Check if it's a bundle
+  const isBundle = product.category === 'bundle';
+  
+  // Get bundle products if applicable
+  const bundleProducts = isBundle && product.bundleProducts 
+    ? getProductsBySlugs(product.bundleProducts) 
+    : [];
+
+  // Get related dispatch posts (not for bundles)
+  const relatedDispatches = isBundle ? [] : getDispatchesByProduct(product.slug);
   
   // Get related products
   const relatedProducts = getRelatedProducts(product.slug, 3);
@@ -36,6 +45,12 @@ const ProductDetail = () => {
     <Layout>
       <ProductHero product={product} />
       <ProductIntro description={product.description} richDescription={product.richDescription} />
+      
+      {/* Bundle Products Section - only for bundles */}
+      {isBundle && bundleProducts.length > 0 && (
+        <BundleProducts products={bundleProducts} />
+      )}
+      
       <ProductFeatures features={product.features} />
       
       {product.specs && product.specs.length > 0 && (

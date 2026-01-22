@@ -12,3 +12,4 @@ export { ProductFeatures } from './product-features';
 export { ProductGallery } from './product-gallery';
 export { ProductSpecs } from './product-specs';
 export { ProductFaq } from './product-faq';
+export { BundleProducts } from './bundle-products';

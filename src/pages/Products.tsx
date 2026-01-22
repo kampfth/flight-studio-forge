@@ -14,7 +14,7 @@ import { staggerContainer, staggerItem } from '@/lib/motion';
 import { usePagination } from '@/hooks/use-pagination';
 import { useIsMobile } from '@/hooks/use-mobile';
 
-type Category = 'all' | 'livery' | 'utility' | 'pack';
+type Category = 'all' | 'livery' | 'utility' | 'pack' | 'bundle';
 
 const Products = () => {
   const isMobile = useIsMobile();
