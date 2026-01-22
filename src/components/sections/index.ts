@@ -2,7 +2,6 @@
  * Sections Components Index
  * Re-exports for cleaner imports
  */
-export { BundleProducts } from './bundle-products';
 export { HeroSection } from './hero-section';
 export { ValuesSection } from './values-section';
 export { FeaturedProducts } from './featured-products';

@@ -12,8 +12,7 @@ import { ProductFeatures } from '@/components/sections/product-features';
 import { ProductFaq } from '@/components/sections/product-faq';
 import { ProductGallery } from '@/components/sections/product-gallery';
 import { ProductSpecs } from '@/components/sections/product-specs';
-import { BundleProducts } from '@/components/sections/bundle-products';
-import { getProductBySlug, getRelatedProducts, getBundleProducts } from '@/content/products';
+import { getProductBySlug, getRelatedProducts } from '@/content/products';
 import { getDispatchesByProduct } from '@/content/dispatch';
 import { ProductCard } from '@/components/products/product-card';
 import { PLACEHOLDERS } from '@/lib/constants';
@@ -27,13 +26,8 @@ const ProductDetail = () => {
     return <Navigate to="/products" replace />;
   }
 
-  const isBundle = product.category === 'bundle';
-
-  // Get bundle products if this is a bundle
-  const bundleProducts = isBundle ? getBundleProducts(product.slug) : [];
-
-  // Get related dispatch posts (not for bundles since they don't have versions)
-  const relatedDispatches = isBundle ? [] : getDispatchesByProduct(product.slug);
+  // Get related dispatch posts
+  const relatedDispatches = getDispatchesByProduct(product.slug);
   
   // Get related products
   const relatedProducts = getRelatedProducts(product.slug, 3);
@@ -42,12 +36,6 @@ const ProductDetail = () => {
     <Layout>
       <ProductHero product={product} />
       <ProductIntro description={product.description} richDescription={product.richDescription} />
-      
-      {/* Bundle Products Section - Only for bundles */}
-      {isBundle && bundleProducts.length > 0 && (
-        <BundleProducts products={bundleProducts} bundleName={product.name} />
-      )}
-
       <ProductFeatures features={product.features} />
       
       {product.specs && product.specs.length > 0 && (
@@ -58,8 +46,8 @@ const ProductDetail = () => {
       
       <ProductFaq faq={product.faq} />
 
-      {/* Related Dispatch Posts - Not for bundles */}
-      {!isBundle && relatedDispatches.length > 0 && (
+      {/* Related Dispatch Posts */}
+      {relatedDispatches.length > 0 && (
         <section className="relative py-16 md:py-24 overflow-hidden">
           {/* Background glow */}
           <div className="absolute inset-0 pointer-events-none">

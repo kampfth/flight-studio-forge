@@ -24,7 +24,7 @@ const productSchema = z.object({
   slug: z.string().min(1, 'Slug is required'),
   tagline: z.string().min(1, 'Tagline is required'),
   description: z.string().min(1, 'Description is required'),
-  category: z.enum(['livery', 'utility', 'pack', 'bundle'] as const),
+  category: z.enum(['livery', 'utility', 'pack'] as const),
   status: z.enum(['draft', 'published', 'archived'] as const),
   actualVersion: z.string().min(1, 'Version is required'),
   releaseDate: z.string().min(1, 'Release date is required'),
