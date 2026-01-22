@@ -9,26 +9,26 @@ import { Layout } from '@/components/layout/layout';
 import { Button } from '@/components/ui/button';
 import { FACEBOOK_URL, SUPPORT_URL } from '@/lib/constants';
 import { ROUTES } from '@/lib/routes';
-import { staggerContainer, staggerItem } from '@/lib/motion';
 
 const Contact = () => {
   return (
     <Layout>
       <section className="relative py-24 md:py-32 min-h-screen overflow-hidden">
-        {/* Animated background */}
+        {/* Modern geometric background */}
         <div className="absolute inset-0 pointer-events-none">
+          {/* Primary gradient orb */}
           <motion.div
-            className="absolute w-[600px] h-[600px] rounded-full"
+            className="absolute w-[700px] h-[700px] rounded-full"
             style={{
-              background: 'radial-gradient(circle, hsl(var(--primary) / 0.1) 0%, transparent 70%)',
-              filter: 'blur(80px)',
-              top: '10%',
+              background: 'radial-gradient(circle, hsl(var(--primary) / 0.1) 0%, transparent 60%)',
+              filter: 'blur(100px)',
+              top: '5%',
               left: '50%',
               transform: 'translateX(-50%)',
             }}
             animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.5, 0.8, 0.5],
+              scale: [1, 1.15, 1],
+              opacity: [0.5, 0.7, 0.5],
             }}
             transition={{
               duration: 15,
@@ -36,17 +36,19 @@ const Contact = () => {
               ease: 'easeInOut',
             }}
           />
+          
+          {/* Secondary accent orb */}
           <motion.div
             className="absolute w-[400px] h-[400px] rounded-full"
             style={{
-              background: 'radial-gradient(circle, hsl(var(--accent) / 0.08) 0%, transparent 70%)',
-              filter: 'blur(100px)',
+              background: 'radial-gradient(circle, hsl(var(--accent) / 0.08) 0%, transparent 60%)',
+              filter: 'blur(80px)',
               bottom: '10%',
-              right: '10%',
+              right: '5%',
             }}
             animate={{
-              x: [0, -30, 0],
-              y: [0, 20, 0],
+              x: [0, -20, 0],
+              y: [0, 15, 0],
             }}
             transition={{
               duration: 20,
@@ -55,28 +57,59 @@ const Contact = () => {
               delay: 5,
             }}
           />
-        </div>
 
-        {/* Grid overlay */}
-        <div className="absolute inset-0 grid-overlay opacity-10" />
+          {/* Geometric grid pattern */}
+          <div 
+            className="absolute inset-0 opacity-[0.03]"
+            style={{
+              backgroundImage: `
+                linear-gradient(hsl(var(--foreground)) 1px, transparent 1px),
+                linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)
+              `,
+              backgroundSize: '80px 80px',
+            }}
+          />
+
+          {/* Radial lines from center */}
+          <svg className="absolute inset-0 w-full h-full opacity-[0.02]" preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <radialGradient id="centerGlow" cx="50%" cy="40%" r="50%">
+                <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.3" />
+                <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0" />
+              </radialGradient>
+            </defs>
+            <circle cx="50%" cy="40%" r="400" fill="url(#centerGlow)" />
+          </svg>
+
+          {/* Floating geometric shapes */}
+          <motion.div
+            className="absolute w-32 h-32 border border-primary/10 rounded-full"
+            style={{ top: '15%', left: '10%' }}
+            animate={{ rotate: 360 }}
+            transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
+          />
+          <motion.div
+            className="absolute w-20 h-20 border border-primary/5 rounded-lg"
+            style={{ bottom: '20%', left: '15%', rotate: '45deg' }}
+            animate={{ rotate: [45, 135, 45] }}
+            transition={{ duration: 30, repeat: Infinity, ease: 'easeInOut' }}
+          />
+        </div>
 
         <div className="section-container relative">
           <div className="max-w-2xl mx-auto">
             {/* Header */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               className="mb-12 text-center"
             >
-              <motion.div 
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 mb-6"
-                whileHover={{ scale: 1.02 }}
-              >
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 mb-6">
                 <MessageCircle size={14} className="text-primary" />
                 <span className="font-mono text-muted-foreground text-xs tracking-[0.2em] uppercase">
                   Contact
                 </span>
-              </motion.div>
+              </div>
               
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-mono font-bold mb-6">
                 Get in{' '}
@@ -92,26 +125,19 @@ const Contact = () => {
             {/* Main Cards: Wiki & Support */}
             <motion.div 
               className="grid grid-cols-1 md:grid-cols-2 gap-5"
-              variants={staggerContainer}
-              initial="hidden"
-              animate="visible"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.1 }}
             >
               {/* Wiki Card */}
-              <motion.div
-                variants={staggerItem}
-                whileHover={{ scale: 1.02, y: -4 }}
-                className="group p-8 rounded-2xl bg-white/[0.03] backdrop-blur-md border border-white/10 hover:border-primary/30 transition-all duration-300"
-              >
-                <motion.div 
-                  className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5"
-                  whileHover={{ rotate: 5 }}
-                >
+              <div className="group flex flex-col p-8 rounded-2xl bg-white/[0.03] backdrop-blur-md border border-white/10 hover:border-primary/30 transition-all duration-300">
+                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5">
                   <BookOpen size={28} className="text-primary" />
-                </motion.div>
+                </div>
                 <h2 className="font-mono font-semibold text-xl mb-2">
                   Wiki
                 </h2>
-                <p className="text-muted-foreground text-sm mb-6 leading-relaxed">
+                <p className="text-muted-foreground text-sm mb-6 leading-relaxed flex-1">
                   Find quick answers for your problems. Browse guides, tutorials, and documentation.
                 </p>
                 <Button asChild className="w-full group/btn">
@@ -120,24 +146,17 @@ const Contact = () => {
                     <ArrowRight size={14} className="ml-2 transition-transform group-hover/btn:translate-x-1" />
                   </Link>
                 </Button>
-              </motion.div>
+              </div>
 
               {/* Support Card */}
-              <motion.div
-                variants={staggerItem}
-                whileHover={{ scale: 1.02, y: -4 }}
-                className="group p-8 rounded-2xl bg-white/[0.03] backdrop-blur-md border border-white/10 hover:border-primary/30 transition-all duration-300"
-              >
-                <motion.div 
-                  className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5"
-                  whileHover={{ rotate: -5 }}
-                >
+              <div className="group flex flex-col p-8 rounded-2xl bg-white/[0.03] backdrop-blur-md border border-white/10 hover:border-primary/30 transition-all duration-300">
+                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5">
                   <Headset size={28} className="text-primary" />
-                </motion.div>
+                </div>
                 <h2 className="font-mono font-semibold text-xl mb-2">
                   Support
                 </h2>
-                <p className="text-muted-foreground text-sm mb-6 leading-relaxed">
+                <p className="text-muted-foreground text-sm mb-6 leading-relaxed flex-1">
                   Need help with a product? Open a support ticket and we'll get back to you.
                 </p>
                 <Button asChild variant="outline" className="w-full bg-white/5 border-white/10 hover:border-primary/30 hover:bg-white/10">
@@ -146,7 +165,7 @@ const Contact = () => {
                     <ExternalLink size={14} className="ml-2" />
                   </a>
                 </Button>
-              </motion.div>
+              </div>
             </motion.div>
 
             {/* Facebook Bar */}
@@ -154,10 +173,9 @@ const Contact = () => {
               href={FACEBOOK_URL}
               target="_blank"
               rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              whileHover={{ scale: 1.01 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
               className="mt-5 flex items-center justify-between px-6 py-4 rounded-xl bg-white/[0.02] border border-white/5 hover:border-primary/20 hover:bg-white/[0.04] transition-all group"
             >
               <div className="flex items-center gap-4">

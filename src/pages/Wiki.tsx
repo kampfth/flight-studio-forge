@@ -11,6 +11,7 @@ import {
   Clock, 
   Eye, 
   ChevronRight,
+  ChevronLeft,
   Rocket,
   Download,
   Wrench,
@@ -23,15 +24,15 @@ import { Layout } from '@/components/layout/layout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { SUPPORT_URL } from '@/lib/constants';
-import { staggerContainer, staggerItem } from '@/lib/motion';
 import { 
   WIKI_ARTICLES, 
   WIKI_CATEGORIES, 
   searchArticles, 
-  getArticleBySlug,
   getMostReadArticles,
   type WikiArticle 
 } from '@/lib/wiki-data';
+
+const ITEMS_PER_PAGE = 10;
 
 const categoryIcons: Record<string, React.ReactNode> = {
   'rocket': <Rocket size={16} />,
@@ -45,6 +46,7 @@ const Wiki = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedArticle, setSelectedArticle] = useState<WikiArticle | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const filteredArticles = useMemo(() => {
     let articles = WIKI_ARTICLES;
@@ -60,35 +62,120 @@ const Wiki = () => {
     return articles;
   }, [searchQuery, selectedCategory]);
 
+  // Reset to page 1 when filters change
+  useMemo(() => {
+    setCurrentPage(1);
+  }, [searchQuery, selectedCategory]);
+
+  const totalPages = Math.ceil(filteredArticles.length / ITEMS_PER_PAGE);
+  const paginatedArticles = filteredArticles.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
+
   const mostReadArticles = useMemo(() => getMostReadArticles(4), []);
 
   const handleClearFilters = () => {
     setSearchQuery('');
     setSelectedCategory(null);
+    setCurrentPage(1);
   };
 
   return (
     <Layout>
-      <section className="relative py-20 md:py-24 min-h-screen">
-        {/* Subtle background */}
+      <section className="relative py-20 md:py-24 min-h-screen overflow-hidden">
+        {/* Modern geometric background */}
         <div className="absolute inset-0 pointer-events-none">
-          <div 
-            className="absolute w-[800px] h-[800px] rounded-full opacity-30"
+          {/* Primary gradient orb */}
+          <motion.div
+            className="absolute w-[600px] h-[600px] rounded-full"
             style={{
-              background: 'radial-gradient(circle, hsl(var(--primary) / 0.05) 0%, transparent 70%)',
-              filter: 'blur(100px)',
-              top: '-20%',
-              left: '50%',
-              transform: 'translateX(-50%)',
+              background: 'radial-gradient(circle, hsl(var(--primary) / 0.12) 0%, transparent 60%)',
+              filter: 'blur(80px)',
+              top: '-10%',
+              right: '-10%',
+            }}
+            animate={{
+              scale: [1, 1.1, 1],
+              opacity: [0.6, 0.8, 0.6],
+            }}
+            transition={{
+              duration: 12,
+              repeat: Infinity,
+              ease: 'easeInOut',
             }}
           />
+          
+          {/* Secondary accent orb */}
+          <motion.div
+            className="absolute w-[500px] h-[500px] rounded-full"
+            style={{
+              background: 'radial-gradient(circle, hsl(var(--accent) / 0.08) 0%, transparent 60%)',
+              filter: 'blur(100px)',
+              bottom: '5%',
+              left: '-5%',
+            }}
+            animate={{
+              x: [0, 30, 0],
+              y: [0, -20, 0],
+            }}
+            transition={{
+              duration: 18,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+
+          {/* Geometric grid pattern */}
+          <div 
+            className="absolute inset-0 opacity-[0.03]"
+            style={{
+              backgroundImage: `
+                linear-gradient(hsl(var(--foreground)) 1px, transparent 1px),
+                linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)
+              `,
+              backgroundSize: '60px 60px',
+            }}
+          />
+
+          {/* Diagonal accent lines */}
+          <svg className="absolute inset-0 w-full h-full opacity-[0.04]" preserveAspectRatio="none">
+            <defs>
+              <pattern id="diagonals" patternUnits="userSpaceOnUse" width="100" height="100">
+                <line x1="0" y1="100" x2="100" y2="0" stroke="hsl(var(--primary))" strokeWidth="0.5" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#diagonals)" />
+          </svg>
+
+          {/* Floating particles */}
+          {[...Array(6)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-1 h-1 rounded-full bg-primary/30"
+              style={{
+                top: `${20 + i * 15}%`,
+                left: `${10 + i * 12}%`,
+              }}
+              animate={{
+                y: [0, -30, 0],
+                opacity: [0.3, 0.6, 0.3],
+              }}
+              transition={{
+                duration: 4 + i,
+                repeat: Infinity,
+                ease: 'easeInOut',
+                delay: i * 0.5,
+              }}
+            />
+          ))}
         </div>
 
         <div className="section-container relative">
           {/* Header */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             className="text-center mb-12"
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 mb-6">
@@ -111,8 +198,8 @@ const Wiki = () => {
             <div className="space-y-6">
               {/* Search */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 transition={{ delay: 0.1 }}
                 className="relative"
               >
@@ -139,8 +226,8 @@ const Wiki = () => {
 
               {/* Category Filters */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 transition={{ delay: 0.15 }}
                 className="flex flex-wrap gap-2"
               >
@@ -171,21 +258,15 @@ const Wiki = () => {
               </motion.div>
 
               {/* Articles List */}
-              <motion.div
-                variants={staggerContainer}
-                initial="hidden"
-                animate="visible"
-                className="space-y-3"
-              >
+              <div className="space-y-3">
                 <AnimatePresence mode="popLayout">
-                  {filteredArticles.length > 0 ? (
-                    filteredArticles.map((article) => (
+                  {paginatedArticles.length > 0 ? (
+                    paginatedArticles.map((article) => (
                       <motion.article
                         key={article.id}
-                        variants={staggerItem}
                         layout
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
                         exit={{ opacity: 0, scale: 0.95 }}
                         whileHover={{ x: 4 }}
                         className="group p-5 rounded-xl bg-white/[0.02] border border-white/5 hover:border-primary/20 hover:bg-white/[0.04] transition-all cursor-pointer"
@@ -239,15 +320,62 @@ const Wiki = () => {
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </motion.div>
+              </div>
+
+              {/* Pagination */}
+              {totalPages > 1 && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="flex items-center justify-center gap-2 pt-6"
+                >
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                    disabled={currentPage === 1}
+                    className="gap-1"
+                  >
+                    <ChevronLeft size={16} />
+                    Previous
+                  </Button>
+                  
+                  <div className="flex items-center gap-1 mx-4">
+                    {[...Array(totalPages)].map((_, i) => (
+                      <button
+                        key={i}
+                        onClick={() => setCurrentPage(i + 1)}
+                        className={`w-8 h-8 rounded-lg font-mono text-sm transition-all ${
+                          currentPage === i + 1
+                            ? 'bg-primary text-primary-foreground'
+                            : 'bg-white/5 text-muted-foreground hover:bg-white/10'
+                        }`}
+                      >
+                        {i + 1}
+                      </button>
+                    ))}
+                  </div>
+
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                    disabled={currentPage === totalPages}
+                    className="gap-1"
+                  >
+                    Next
+                    <ChevronRight size={16} />
+                  </Button>
+                </motion.div>
+              )}
             </div>
 
             {/* Right Column - 30% */}
             <div className="space-y-6">
               {/* Most Read */}
               <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 transition={{ delay: 0.2 }}
                 className="p-6 rounded-xl bg-white/[0.02] border border-white/5"
               >
@@ -274,8 +402,8 @@ const Wiki = () => {
 
               {/* Still Need Help */}
               <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 transition={{ delay: 0.3 }}
                 className="p-6 rounded-xl bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border border-primary/20"
               >
@@ -310,9 +438,9 @@ const Wiki = () => {
               onClick={() => setSelectedArticle(null)}
             >
               <motion.div
-                initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
                 className="relative w-full max-w-3xl max-h-[85vh] overflow-hidden rounded-2xl bg-background border border-white/10 shadow-2xl"
                 onClick={(e) => e.stopPropagation()}
               >
