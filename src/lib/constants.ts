@@ -47,6 +47,7 @@ export const PRODUCT_CATEGORIES = [
   { value: 'livery', label: 'Liveries' },
   { value: 'utility', label: 'Utilities' },
   { value: 'pack', label: 'Packs' },
+  { value: 'bundle', label: 'Bundles' },
 ] as const;
 
 // =============================================================================

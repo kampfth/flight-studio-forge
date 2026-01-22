@@ -16,10 +16,11 @@ interface ProductCardProps {
   index: number;
 }
 
-const categoryLabels = {
+const categoryLabels: Record<string, string> = {
   livery: 'Livery',
   utility: 'Utility',
   pack: 'Pack',
+  bundle: 'Bundle',
 };
 
 export function ProductCard({ product, index }: ProductCardProps) {
