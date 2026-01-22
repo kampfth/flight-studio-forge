@@ -85,13 +85,13 @@ export function BundleProducts({ products }: BundleProductsProps) {
                     <img 
                       src={PLACEHOLDERS.products[index % PLACEHOLDERS.products.length]}
                       alt=""
-                      className="absolute right-0 top-0 h-full w-3/4 object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                      className="absolute left-0 top-0 h-full w-3/4 object-cover object-center transition-transform duration-500 group-hover:scale-105"
                     />
-                    {/* Horizontal gradient fade from left */}
+                    {/* Horizontal gradient fade from right */}
                     <div 
                       className="absolute inset-0"
                       style={{
-                        background: 'linear-gradient(to right, hsl(var(--background)) 25%, hsl(var(--background) / 0.8) 45%, hsl(var(--background) / 0.5) 65%, transparent 100%)'
+                        background: 'linear-gradient(to left, hsl(var(--background)) 25%, hsl(var(--background) / 0.8) 45%, hsl(var(--background) / 0.5) 65%, transparent 100%)'
                       }}
                     />
                   </div>
